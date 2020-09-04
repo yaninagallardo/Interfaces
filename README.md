@@ -1,4 +1,4 @@
-## Entregas para la Materia Interfaces
+## Entregas para la Materia Interfaces de usuario e Interacción
 ### Carrera: Técnico Universitario en Desarrollo de Aplicaciones Informáticas
 
 # **Ejercicio Entregable – Práctico No1**
