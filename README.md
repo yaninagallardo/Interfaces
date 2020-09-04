@@ -1,7 +1,6 @@
 ## Entregas para la Materia Interfaces
 ### Carrera: Técnico Universitario en Desarrollo de Aplicaciones Informáticas
 
-Entrega 1: 
 # **Ejercicio Entregable – Práctico No1**
 
 Desarrollar una aplicación web similar al clásico Paint de Windows que provea de la siguiente funcionalidad:
