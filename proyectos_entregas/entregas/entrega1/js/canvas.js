@@ -2,6 +2,12 @@ class Canvas {
     constructor(idCanvas, width, height) {
         this.id = idCanvas;
         this.dibujar = false;
+        this.lapizSeleccionado = true;
+
+        this.backgroundColor = "#e2d5bc";
+        this.colorDraw = "#000000";
+        this.colorCanvas = "#000000";
+
         this.canvas = document.querySelector(this.id);
         this.ctx = this.canvas.getContext('2d');
         this.canvas.height = height;
@@ -22,7 +28,7 @@ class Canvas {
         let posicionActual = this.posicionMouse(evt);
         this.ctx.moveTo(posicionActual.x, posicionActual.y)
         this.ctx.lineCap = "round";
-        this.ctx.strokeStyle = "#000000";
+        this.ctx.strokeStyle = this.colorCanvas;
         this.ctx.lineWidth = 5; //Defino el ancho de la linea en pixeles
         this.ctx.beginPath();
     }
@@ -40,6 +46,32 @@ class Canvas {
         return { //objeto con posición del mouse
             x: Math.round(evt.clientX - clientRect.left),
             y: Math.round(evt.clientY - clientRect.top)
+        }
+    }
+
+    // Botones
+    limpiarCanvas() {
+        this.lapizSeleccionado = true;
+        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    borrador(){
+        this.colorCanvas = this.backgroundColor;
+        this.lapizSeleccionado = false;
+    }
+
+    pincelSeleccionado(){
+        this.lapizSeleccionado = true;
+        this.colorCanvas = this.colorDraw;
+    }
+
+    setColor(color) {
+        try {
+            this.colorDraw = color;
+            this.colorCanvas = color;
+        } catch {
+            this.colorDraw = "#000000";
+            this.colorCanvas = "#000000";
         }
     }
 
