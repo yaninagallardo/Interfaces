@@ -1,17 +1,17 @@
 "use strict"
 
-window.addEventListener('DOMContentLoaded', (event) => {
-    const canvas = new Canvas('#canvas', 500, 400);
-    const imageCanvas = new ImageCanvas('#imageInput', '#imageCropper');
-    // canvas.eventsMouse();
+window.addEventListener('DOMContentLoaded', () => {
+    const canvas = new ImageCanvas('#imageInput', '#imageCropper', '#canvas', 600, 400);
+
     eventsCanvas(canvas);
-    eventImage(imageCanvas);
+    eventImage(canvas);
     eventButtons(canvas);
+    eventFilterButtons(canvas);
 });
 
 function eventsCanvas(canvas) {
     // Canvas
-    canvas.canvas.addEventListener("mousedown",function(){
+    canvas.canvas.addEventListener("mousedown",function(event){
         canvas.empezarDibujo(event);
     }, false);
     canvas.canvas.addEventListener("mouseup", function(){
@@ -20,15 +20,15 @@ function eventsCanvas(canvas) {
     canvas.canvas.addEventListener("mouseout", function(){
         canvas.noDibujar();
     }, false);
-    canvas.canvas.addEventListener("mousemove", function(){
+    canvas.canvas.addEventListener("mousemove", function(event){
         canvas.dibujandoLinea(event);
     }, false);
 }
 
 function eventImage(image){
     // Image 
-    image.imageCropper.addEventListener('change', function(){
-        this.image.setImage();
+    image.image.addEventListener('change', function(event){
+        image.setImage(event);
     });
 }
 
@@ -46,6 +46,23 @@ function eventButtons(canvas){
     color.addEventListener('change', function(){
         canvas.setColor(color.value);
     });
+
+    document.querySelector("#descargar").addEventListener('click', function(){
+        canvas.descargarImagen();
+    });
+}
+
+function eventFilterButtons(imagenData){
+    document.querySelector("#filtro-negativo").addEventListener('click', function(){
+        imagenData.negativo();
+    });
+    document.querySelector("#filtro-sepia").addEventListener('click', function(){
+        imagenData.sepia();
+    });
+    document.querySelector("#filtro-byn").addEventListener('click', function(){
+        imagenData.blanconegro();
+    });
+    
 }
 
 
