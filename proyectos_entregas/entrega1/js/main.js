@@ -60,7 +60,7 @@ function eventFilterButtons(imagenData){
         imagenData.sepia();
     });
     document.querySelector("#filtro-byn").addEventListener('click', function(){
-        imagenData.blanconegro();
+        imagenData.desenfoque();
     });
     
 }
