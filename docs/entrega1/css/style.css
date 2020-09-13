@@ -1,0 +1,70 @@
+html, body{  
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.principal-content {
+    background-color: #767c77;
+}
+
+/* Title */
+.background-yellow{
+    background-color: #fbe2e5;
+    color: #eb4d55;
+    font-size: 24px;
+}
+
+.button-card{
+    width: 100%;
+    margin: 5px 0;
+}
+
+.button-card-filter{
+    width: 48%;
+    padding: 3px;
+    margin: 5px 0;
+}
+
+.label-grid{
+    padding: 5px;
+    background-color: #5e6f64bb;
+}
+
+.label-grid>label{
+    color: #fff0f5;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.canvasclass {
+    border: 11px solid #4d3024;
+    background-color: #ffffff;
+}
+
+.button-color {
+    width: 50px;
+    height: 50px;
+}
+
+.imgload-default {
+    width: 150px;
+    margin-left: 20%;
+}
+
+.imgload-buttonfilter{
+ width: 130px;
+ margin: 3px;
+}
+
+.rango-herramienta{
+    color: aqua;
+}
+
+.text-footer{
+    font-size: 16px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/*  -------------------- COLORES ----------------*/
+.colorlapiz{
+    height: 100%;
+}
