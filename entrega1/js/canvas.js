@@ -145,12 +145,16 @@ class ImageCanvas extends Canvas {
     /*--------------FILTROS -------------*/
     quitarFiltro() {
         if (this.filterApply || this.limpiarDibujo) {
-            let imageAspectRatio = (1.0 * this.imageDataOriginal.width) / this.imageDataOriginal.height;
-            let imageScaledHeight = this.canvas.height;
-            let imageScaledWidth = this.canvas.height * imageAspectRatio;
-            this.ctx.drawImage(this.imageDataOriginal, 0, 0, imageScaledWidth, imageScaledHeight);
+            this.ctx.drawImage(this.imageDataOriginal, 0, 0, this.canvas.width, this.canvas.height);
             this.filterApply = false;
+            //this.resetRanges();
         }
+    }
+
+    resetRanges(){
+        document.querySelector("#rangeBrillo").value = 0;
+        document.querySelector("#rangeContraste").value = 0;
+        document.querySelector("#rangeSaturacion").value = 0;
     }
 
     negativo() {
@@ -175,12 +179,10 @@ class ImageCanvas extends Canvas {
         for (let j = 0; j < imageData.height; j++) {
             for (let i = 0; i < imageData.width; i++) {
                 let index = (i + imageData.width * j) * 4;
+
                 let rojo = 0.393 * imageData.data[index] + 0.769 * imageData.data[index + 1] + 0.189 * imageData.data[index + 2];
-                if (rojo > valueColorMax) rojo = valueColorMax;
                 let verde = 0.349 * imageData.data[index] + 0.686 * imageData.data[index + 1] + 0.168 * imageData.data[index + 2];
-                if (verde > valueColorMax) verde = valueColorMax;
                 let azul = 0.272 * imageData.data[index] + 0.534 * imageData.data[index + 1] + 0.131 * imageData.data[index + 2];
-                if (azul > valueColorMax) azul = valueColorMax;
                 imageData.data[index] = rojo;
                 imageData.data[index + 1] = verde;
                 imageData.data[index + 2] = azul;
@@ -260,6 +262,30 @@ class ImageCanvas extends Canvas {
                 imageData.data[index] = this.trunc(param + imageData.data[index + 0]);
                 imageData.data[index + 1] = this.trunc(param + imageData.data[index + 1]);
                 imageData.data[index + 2] = this.trunc(param + imageData.data[index + 2]);
+            }
+        }
+        this.ctx.putImageData(imageData, 0, 0);
+        this.filterApply = true;
+    }
+
+    saturacion(parametro) {
+        this.quitarFiltro();
+        let value = -(parametro);
+        let imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
+
+        for (let y = 0; y < imageData.height; y++) {
+            for (let x = 0; x < imageData.width; x++) {
+                let i = (y * imageData.width + x) * 4;
+
+                let r = imageData.data[i];
+                let g = imageData.data[i + 1];
+                let b = imageData.data[i + 2];
+
+                let gray = 0.2989 * r + 0.5870 * g + 0.1140 * b;
+
+                imageData.data[i] = gray * value + imageData.data[i] * (1 - value);
+                imageData.data[i + 1] = gray * value + imageData.data[i + 1] * (1 - value);
+                imageData.data[i + 2] = gray * value + imageData.data[i + 2] * (1 - value);
             }
         }
         this.ctx.putImageData(imageData, 0, 0);

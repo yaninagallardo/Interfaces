@@ -84,6 +84,11 @@ function eventFilterButtons(imagenData){
     contraste.addEventListener('change', function(){
         imagenData.contraste(contraste.value);
     });
+    let saturacion = document.querySelector("#rangeSaturacion");
+    saturacion.value = -100;
+    saturacion.addEventListener('change', function(){
+        imagenData.saturacion(saturacion.value);
+    });
 }
 
 
