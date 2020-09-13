@@ -6,6 +6,7 @@ class Canvas {
         this.canvas.width = width;
 
         this.dibujar = false;
+        this.limpiarDibujo = false;
         this.lapizSeleccionado = true;
 
         this.backgroundColor = "#ffffff";
@@ -37,6 +38,7 @@ class Canvas {
             let posicion = this.posicionMouse(evt);
             this.ctx.lineTo(posicion.x, posicion.y);
             this.ctx.stroke();
+            this.limpiarDibujo = true;
         }
     }
 
@@ -50,8 +52,9 @@ class Canvas {
 
     // Botones
     limpiarCanvas() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.lapizSeleccionado = true;
-        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.limpiarDibujo = false;
     }
 
     borrador() {
@@ -79,7 +82,6 @@ class Canvas {
 /* --------------- IMAGEN ------------------*/
 const valueColorMax = 255;
 const imageDefault = "./img/no-disponible.jpg";
-const imagenMuestra = "./img/paisaje-muestra.jpg";
 class ImageCanvas extends Canvas {
     constructor(imageInput, imageCropper, idCanvas, width, height) {
         super(idCanvas, width, height);
@@ -87,15 +89,7 @@ class ImageCanvas extends Canvas {
         this.image = document.querySelector(imageInput);
         this.imageExample = document.querySelector(imageCropper);
         this.imageExample.src = imageDefault;
-        this.imageBase64 = null;
         this.filterApply = false;
-    }
-
-    cargarMuestrasdeFiltros(){
-        this.negativo = document.querySelector("#filtro-negativo");
-        this.sepia = document.querySelector("#filtro-sepia");
-        this.byn = document.querySelector("#filtro-byn");
-        this.blur = document.querySelector("#filtro-blur");
     }
 
     setImage(e) {
@@ -104,10 +98,9 @@ class ImageCanvas extends Canvas {
         let file = e.target.files[0];
         let reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onload = readerEvent => {
+        reader.onload = async readerEvent => {
             let content = readerEvent.target.result;
-            this.imageBase64 = content;
-            this.drawImage(content);
+            this.imageDataOriginal = await this.drawImage(content);
         }
     }
 
@@ -119,23 +112,28 @@ class ImageCanvas extends Canvas {
         let imageShow = new Image();
 
         imageShow.src = content;
-        imageShow.onload = function () {
-            let imageScaledWidth = canvasClone.width;
-            let imageScaledHeight = canvasClone.height;
-            let imageAspectRatio = (1.0 * this.height) / this.width;
+        return new Promise(function (resolve) {
+            imageShow.onload = function () {
 
-            if (this.width < this.height) {
-                imageAspectRatio = (1.0 * this.width) / this.height;
-                imageScaledWidth = canvasClone.height * imageAspectRatio;
-                imageScaledHeight = canvasClone.height;
+                let imageScaledWidth = canvasClone.width;
+                let imageScaledHeight = canvasClone.height;
+                let imageAspectRatio = (1.0 * this.height) / this.width;
+
+                if (this.width < this.height) {
+                    imageAspectRatio = (1.0 * this.width) / this.height;
+                    imageScaledWidth = canvasClone.height * imageAspectRatio;
+                    imageScaledHeight = canvasClone.height;
+                }
+                contextClone.drawImage(this, 0, 0, imageScaledWidth, imageScaledHeight);
+
+                let imageData = contextClone.getImageData(0, 0, imageScaledWidth, imageScaledHeight);
+                contextClone.putImageData(imageData, 0, 0);
+                imageClone.src = imageShow.src;
+
+                resolve(this);
             }
-            contextClone.drawImage(this, 0, 0, imageScaledWidth, imageScaledHeight);
+        });
 
-            let imageData = contextClone.getImageData(0, 0, imageScaledWidth, imageScaledHeight);
-            contextClone.putImageData(imageData, 0, 0);
-
-            imageClone.src = imageShow.src;
-        }
     }
 
     descargarImagen() {
@@ -146,16 +144,14 @@ class ImageCanvas extends Canvas {
 
     /*--------------FILTROS -------------*/
     quitarFiltro() {
-        console.log(this.filterApply);
-    //     if(this.filterApply === true){
-    //         let imageAspectRatio = (1.0 * this.imageBase64.width) / this.imageBase64.height;
-    //         let imageScaledHeight = canvas.height;
-    //         let imageScaledWidth = canvas.height * imageAspectRatio;
-    //         this.ctx.drawImage(this.imageBase64, 0, 0, imageScaledWidth, imageScaledHeight);
-    //         this.filterApply = false;
-    //     }
+        if (this.filterApply || this.limpiarDibujo) {
+            let imageAspectRatio = (1.0 * this.imageDataOriginal.width) / this.imageDataOriginal.height;
+            let imageScaledHeight = this.canvas.height;
+            let imageScaledWidth = this.canvas.height * imageAspectRatio;
+            this.ctx.drawImage(this.imageDataOriginal, 0, 0, imageScaledWidth, imageScaledHeight);
+            this.filterApply = false;
+        }
     }
-
 
     negativo() {
         this.quitarFiltro();
@@ -233,10 +229,12 @@ class ImageCanvas extends Canvas {
             (data[i - 4 * width + 4]) + (data[i + 4 * width - 4])) / max;
     }
 
-    contraste(contraste) {
-        let imageData = this.ctx.getImageData(0, 0, canvas.width, canvas.height);
+    contraste(parameter) {
+        this.quitarFiltro();
+        let imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
 
         let numPixels = imageData.width * imageData.height;
+        let contraste = Number(parameter);
         let factor = (259 * (contraste + 255)) / (255 * (259 - contraste));
 
         for (let i = 0; i < numPixels; i++) {
@@ -249,13 +247,13 @@ class ImageCanvas extends Canvas {
             imageData.data[i * 4 + 2] = factor * (b - 128) + 128;
         }
         this.ctx.putImageData(imageData, 0, 0);
-
+        this.filterApply = true;
     }
 
-    brillo() {
-        let imageData = this.ctx.getImageData(0, 0, canvas.width, canvas.height);
-        let param = 50;
-
+    brillo(parameter) {
+        this.quitarFiltro();
+        let imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
+        let param = Number(parameter);
         for (let y = 0; y < this.canvas.height; y++) {
             for (let x = 0; x < this.canvas.width; x++) {
                 let index = (x + y * imageData.width) * 4;
@@ -265,6 +263,7 @@ class ImageCanvas extends Canvas {
             }
         }
         this.ctx.putImageData(imageData, 0, 0);
+        this.filterApply = true;
     }
 
     trunc(value) {
@@ -274,6 +273,4 @@ class ImageCanvas extends Canvas {
             return 255;
         else return value;
     }
-
-
 }

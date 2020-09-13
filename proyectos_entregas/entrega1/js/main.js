@@ -27,8 +27,15 @@ function eventsCanvas(canvas) {
 
 function eventImage(image){
     // Image 
-    image.image.addEventListener('change', function(event){
-        image.setImage(event);
+    document.querySelector("#cargarImagen").addEventListener('click', function(){
+        let input = document.querySelector("#imageInput");
+        input.click();
+        input.onchange = e => {
+            image.setImage(e);
+        }
+    });
+    document.querySelector("#limpiarImagen").addEventListener('click', function(){
+        image.quitarFiltro();
     });
 }
 
@@ -65,8 +72,18 @@ function eventFilterButtons(imagenData){
     document.querySelector("#filtro-blur").addEventListener('click', function(){
         imagenData.desenfoque();
     });
-    
-    
+
+    // tool
+    let brillo = document.querySelector("#rangeBrillo");
+    brillo.value = 0;
+    brillo.addEventListener('change', function(){
+        imagenData.brillo(brillo.value);
+    });
+    let contraste = document.querySelector("#rangeContraste");
+    contraste.value = 0;
+    contraste.addEventListener('change', function(){
+        imagenData.contraste(contraste.value);
+    });
 }
 
 

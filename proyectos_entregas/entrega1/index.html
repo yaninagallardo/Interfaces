@@ -16,8 +16,8 @@
 <body>
     <div class="principal-content container-fluid">
         <div class="row">
-            <div class="col-12 p-3 background-yellow">
-                <label>Yanina Gallardo</label>
+            <div class="col-12 p-2 background-yellow">
+                <label class="ml-4">Yanina Gallardo</label>
             </div>
         </div>
         <div class="row mt-5">
@@ -30,7 +30,8 @@
                             <button id="borrar" class="btn btn-danger"><i class="fas fa-eraser"></i></button>
                             <button id="reset" class="btn btn-primary"><i class="fas fa-redo"></i></button>
                         </div>
-                        <a id="link-descarga" class="ml-2" download="dibujo.png" ><button id="descargar" type="button" class="btn btn-success"><i class="fas fa-arrow-circle-down"></i> Descargar</button></a>
+                        <a id="link-descarga" class="ml-2" download="dibujo.png"><button id="descargar" type="button"
+                                class="btn btn-success"><i class="fas fa-arrow-circle-down"></i> Descargar</button></a>
                     </div>
                     <div class="col-12">
                         <canvas #canvas id="canvas" class="canvasclass"></canvas>
@@ -38,33 +39,65 @@
                 </div>
             </div>
             <!-- Opciones -->
-            <div class="col-md-12 col-sm-12 col-lg-4">
+            <div class="col-md-12 col-sm-12 col-lg-4 mb-4">
                 <!-- Imagenes -->
                 <div class="row bg-light pb-3">
                     <div class="col-12 border-bottom border-secondary text-center label-grid">
                         <label>Cargar Imagen</label>
                     </div>
-                    <div class="col-12 p-3">
-                        <img #imageCropper id="imageCropper" class="imgload-default" src="" alt="Imagen No Disponible">
-                        <input #imageInput id="imageInput" type="file" name="myImage" accept="image/*"/>
+                    <div class="col-12 p-3 d-flex flex-column">
+                        <div class="row">
+                            <div class="col-6">
+                                <img #imageCropper id="imageCropper" class="imgload-default" src=""
+                                    alt="Imagen No Disponible">
+                            </div>
+                            <div class="col-6">
+                                <input #imageInput id="imageInput" type="file" name="myImage" accept="image/*"
+                                    style="display:none" />
+                                <button id="cargarImagen" class="btn btn-dark button-card">Cargar Imagen</button>
+                                <button id="limpiarImagen" class="btn btn-dark button-card">Reset Imagen</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- Colores -->
+                <!-- Filtros -->
                 <div class="row bg-light pb-3">
                     <div class="col-12 border-bottom border-secondary text-center label-grid">
                         <label>Filtros</label>
                     </div>
-                    <div class="col-12 p-3">
-                        <img id="filtro-negativo" class="imgload-buttonfilter" src="../entrega1/img/paisaje-negativo.png" alt="Negativo">
-                        <img id="filtro-sepia" class="imgload-buttonfilter" src="../entrega1/img/paisaje-sepia.png" alt="Sepia">
-                        <img id="filtro-byn" class="imgload-buttonfilter" src="../entrega1/img/paisaje-byn.png" alt="Monócromo">
-                        <img id="filtro-blur" class="imgload-buttonfilter" src="../entrega1/img/paisaje-blur.png" alt="Desenfoque">
-                        <!-- <button id="filtro-negativo" class="btn btn-light m-0">Negativo</button> -->
-                        <!-- <button id="filtro-sepia" class="btn btn-light m-0">Sepia</button>
-                        <button id="filtro-byn" class="btn btn-light m-0">Monocromo</button>
-                        <button id="filtro-blur" class="btn btn-light m-0">Desenfocar</button> -->
+                        <div class="col-12 ">
+                            <button id="filtro-negativo" class="btn btn-dark button-card-filter">Negativo</button>
+                            <button id="filtro-sepia" class="btn btn-dark button-card-filter">Sepia</button>
+                            <button id="filtro-byn" class="btn btn-dark button-card-filter">Monocromo</button>
+                            <button id="filtro-blur" class="btn btn-dark button-card-filter">Desenfocar</button>
+                        </div>
+                </div>
+                <!-- Herramientas -->
+                <div class="row bg-light">
+                    <div class="col-12 border-bottom border-secondary text-center label-grid">
+                        <label>Herramientas</label>
+                    </div>
+                    <div class="pl-3">
+                        <div class="d-flex flex-row">
+                            <label for="rangeBrillo" class="mr-3">Brillo</label>
+                            <input type="range" min="0" max="50" step="5" class="form-control-range" id="rangeBrillo">
+                        </div>
+                        <div class="d-flex flex-row">
+                            <label for="rangeContraste" class="mr-3">Contraste</label>
+                            <input type="range" min="0" max="200" step="10" class="form-control-range"
+                                id="rangeContraste">
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 p-2 background-yellow text-right">
+                <div class="mr-4 text-footer">
+                    <p class="p-0 m-0">Técnico Universitario en Desarrollo de Aplicaciones Informáticas</p>
+                    <p>Interfaces de usuario e Interacción - 2020</p>
+                </div>
+
             </div>
         </div>
     </div>
