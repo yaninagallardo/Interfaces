@@ -147,14 +147,7 @@ class ImageCanvas extends Canvas {
         if (this.filterApply || this.limpiarDibujo) {
             this.ctx.drawImage(this.imageDataOriginal, 0, 0, this.canvas.width, this.canvas.height);
             this.filterApply = false;
-            //this.resetRanges();
         }
-    }
-
-    resetRanges(){
-        document.querySelector("#rangeBrillo").value = 0;
-        document.querySelector("#rangeContraste").value = 0;
-        document.querySelector("#rangeSaturacion").value = 0;
     }
 
     negativo() {
