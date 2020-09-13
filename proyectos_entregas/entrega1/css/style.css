@@ -29,8 +29,6 @@ html, body{
     font-size: 20px;
 }
 
-
-/*-----------------------  PRACTICO 1 STYLE  --------------------*/
 .canvasclass {
     border: 11px solid #4d3024;
     background-color: #ffffff;
@@ -44,6 +42,11 @@ html, body{
 .imgload-default {
     width: 200px;
     margin-left: 20%;
+}
+
+.imgload-buttonfilter{
+ width: 100px;
+ margin-left: 3px;
 }
 
 /*  -------------------- COLORES ----------------*/

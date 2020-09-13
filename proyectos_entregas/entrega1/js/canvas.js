@@ -79,6 +79,7 @@ class Canvas {
 /* --------------- IMAGEN ------------------*/
 const valueColorMax = 255;
 const imageDefault = "./img/no-disponible.jpg";
+const imagenMuestra = "./img/paisaje-muestra.jpg";
 class ImageCanvas extends Canvas {
     constructor(imageInput, imageCropper, idCanvas, width, height) {
         super(idCanvas, width, height);
@@ -88,6 +89,13 @@ class ImageCanvas extends Canvas {
         this.imageExample.src = imageDefault;
         this.imageBase64 = null;
         this.filterApply = false;
+    }
+
+    cargarMuestrasdeFiltros(){
+        this.negativo = document.querySelector("#filtro-negativo");
+        this.sepia = document.querySelector("#filtro-sepia");
+        this.byn = document.querySelector("#filtro-byn");
+        this.blur = document.querySelector("#filtro-blur");
     }
 
     setImage(e) {

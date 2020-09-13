@@ -60,8 +60,12 @@ function eventFilterButtons(imagenData){
         imagenData.sepia();
     });
     document.querySelector("#filtro-byn").addEventListener('click', function(){
+        imagenData.blanconegro();
+    });
+    document.querySelector("#filtro-blur").addEventListener('click', function(){
         imagenData.desenfoque();
     });
+    
     
 }
 
