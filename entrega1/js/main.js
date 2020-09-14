@@ -72,8 +72,11 @@ function eventFilterButtons(imagenData){
     document.querySelector("#filtro-blur").addEventListener('click', function(){
         imagenData.desenfoque();
     });
+    document.querySelector("#filtro-binario").addEventListener('click', function(){
+        imagenData.binario();
+    });
 
-    // tool
+    // Filtros por Rango
     let brillo = document.querySelector("#rangeBrillo");
     brillo.value = 0;
     brillo.addEventListener('change', function(){

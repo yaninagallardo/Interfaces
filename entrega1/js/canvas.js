@@ -192,10 +192,37 @@ class ImageCanvas extends Canvas {
         for (let y = 0; y < this.canvas.height; y++) {
             for (let x = 0; x < this.canvas.width; x++) {
                 let index = (x + y * imageData.width) * 4;
-                let colorGris = (imageData.data[index] + imageData.data[index + 1] + imageData.data[index + 2]) / 3;
+
+                let colorGris = this.getGris(imageData.data[index], imageData.data[index + 1], imageData.data[index + 2]);
+
                 imageData.data[index] = colorGris;
                 imageData.data[index + 1] = colorGris;
                 imageData.data[index + 2] = colorGris;
+            }
+        }
+        this.ctx.putImageData(imageData, 0, 0);
+        this.filterApply = true;
+    }
+    
+    binario() {
+        this.quitarFiltro();
+        let imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
+
+        for (let y = 0; y < this.canvas.height; y++) {
+            for (let x = 0; x < this.canvas.width; x++) {
+                let index = (x + y * imageData.width) * 4;
+
+                let colorGris = this.getGris(imageData.data[index], imageData.data[index + 1], imageData.data[index + 2]);
+
+                if (colorGris > 100) {
+                    imageData.data[index] = valueColorMax;
+                    imageData.data[index + 1] = valueColorMax;
+                    imageData.data[index + 2] = valueColorMax;
+                } else {
+                    imageData.data[index] = 0;
+                    imageData.data[index + 1] = 0;
+                    imageData.data[index + 2] = 0;
+                }
             }
         }
         this.ctx.putImageData(imageData, 0, 0);
@@ -270,19 +297,19 @@ class ImageCanvas extends Canvas {
             for (let x = 0; x < imageData.width; x++) {
                 let i = (y * imageData.width + x) * 4;
 
-                let r = imageData.data[i];
-                let g = imageData.data[i + 1];
-                let b = imageData.data[i + 2];
+                let gris = this.getGris(imageData.data[i], imageData.data[i + 1], imageData.data[i + 2]);
 
-                let gray = 0.2989 * r + 0.5870 * g + 0.1140 * b;
-
-                imageData.data[i] = gray * value + imageData.data[i] * (1 - value);
-                imageData.data[i + 1] = gray * value + imageData.data[i + 1] * (1 - value);
-                imageData.data[i + 2] = gray * value + imageData.data[i + 2] * (1 - value);
+                imageData.data[i] = gris * value + imageData.data[i] * (1 - value);
+                imageData.data[i + 1] = gris * value + imageData.data[i + 1] * (1 - value);
+                imageData.data[i + 2] = gris * value + imageData.data[i + 2] * (1 - value);
             }
         }
         this.ctx.putImageData(imageData, 0, 0);
         this.filterApply = true;
+    }
+
+    getGris(r, g, b) {
+        return 0.2989 * r + 0.5870 * g + 0.1140 * b;
     }
 
     trunc(value) {
