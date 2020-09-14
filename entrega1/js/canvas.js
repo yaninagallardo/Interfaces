@@ -110,17 +110,16 @@ class ImageCanvas extends Canvas {
         let imageClone = this.imageExample;
 
         let imageShow = new Image();
-
         imageShow.src = content;
         return new Promise(function (resolve) {
             imageShow.onload = function () {
 
                 let imageScaledWidth = canvasClone.width;
                 let imageScaledHeight = canvasClone.height;
-                let imageAspectRatio = (1.0 * this.height) / this.width;
+                let imageAspectRatio = (1.0 * canvasClone.height) / canvasClone.width;
 
-                if (this.width < this.height) {
-                    imageAspectRatio = (1.0 * this.width) / this.height;
+                if (canvasClone.width < canvasClone.height) {
+                    imageAspectRatio = (1.0 * canvasClone.width) / canvasClone.height;
                     imageScaledWidth = canvasClone.height * imageAspectRatio;
                     imageScaledHeight = canvasClone.height;
                 }
@@ -138,7 +137,9 @@ class ImageCanvas extends Canvas {
 
     descargarImagen() {
         let descarga = document.querySelector("#link-descarga");
-        let image = this.canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+        let image = this.canvas.toDataURL("image/png");
+        image.replace("image/png", "image/octet-stream");
+        
         descarga.setAttribute("href", image);
     }
 
@@ -203,7 +204,7 @@ class ImageCanvas extends Canvas {
         this.ctx.putImageData(imageData, 0, 0);
         this.filterApply = true;
     }
-    
+
     binario() {
         this.quitarFiltro();
         let imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
@@ -279,9 +280,9 @@ class ImageCanvas extends Canvas {
         for (let y = 0; y < this.canvas.height; y++) {
             for (let x = 0; x < this.canvas.width; x++) {
                 let index = (x + y * imageData.width) * 4;
-                imageData.data[index] = this.trunc(param + imageData.data[index + 0]);
-                imageData.data[index + 1] = this.trunc(param + imageData.data[index + 1]);
-                imageData.data[index + 2] = this.trunc(param + imageData.data[index + 2]);
+                imageData.data[index] = this.controlarMaxMin(param + imageData.data[index + 0]);
+                imageData.data[index + 1] = this.controlarMaxMin(param + imageData.data[index + 1]);
+                imageData.data[index + 2] = this.controlarMaxMin(param + imageData.data[index + 2]);
             }
         }
         this.ctx.putImageData(imageData, 0, 0);
@@ -312,11 +313,16 @@ class ImageCanvas extends Canvas {
         return 0.2989 * r + 0.5870 * g + 0.1140 * b;
     }
 
-    trunc(value) {
-        if (value < 0)
-            return 0;
-        if (value > 255)
-            return 255;
-        else return value;
+    controlarMaxMin(value) {
+        const min = 0;
+        const max = 255;
+
+        if (value < min){
+            return min;
+        } else if (value > max){
+            return max;
+        } else {
+            return value;
+        } 
     }
 }
