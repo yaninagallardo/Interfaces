@@ -88,7 +88,6 @@ class Tablero {
                     posY: this.matriz[index].y,
                     celdaOcupada: true
                 }
-
             } 
         }
         return celdaOcupada;
@@ -104,10 +103,7 @@ class Tablero {
     }
 
     calcularFichas() {
-        let total = this.cantFilas * this.cantColumnas;
-        // const emiter = new EventEmitter();
-        // emiter.on('totalFichas', handleMyEvent);
-        // emiter.emit('totalFichas', total);
+        return this.cantFilas * this.cantColumnas;
     }
 
     setColor(color) {
