@@ -1,0 +1,46 @@
+body{
+    background-image: url("../img/wallpaper-madera.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+html{
+    height: 100%;
+}
+
+
+
+.contenedor{
+    margin-top: 10%;
+    display: flex;
+    flex-direction: row;
+}
+
+.contenedor>.contenedor-vista{
+    background-color: aliceblue;
+    width: 20%;
+    margin: 0 4%;
+    
+}
+
+.contenedor-canvas{
+    width: 50%;
+}
+
+#canvas{
+    /* background-image: url("../img/tabler-sinfondo.png"); */
+    /* background-repeat: no-repeat;
+    background-size: cover; */
+    background-color: white;
+}
+.conjunto-fichas{
+    z-index: 2;
+    position: relative;
+
+}
+
+.ficha{
+    width: 20%;
+    position: absolute; 
+    
+}
