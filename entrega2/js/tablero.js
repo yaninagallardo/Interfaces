@@ -67,6 +67,11 @@ class Tablero {
     }
 
     ocuparCelda(x, y) {
+        let celdaOcupada = {
+            posX: 0,
+            posY: 0,
+            celdaOcupada: false
+        }
         for (let i = 0; i < this.matriz.length; i++) {
             if (!this.matriz[i].ocupada &&
                 x > this.matriz[i].x && //31 > 50 si
@@ -78,13 +83,15 @@ class Tablero {
 
                 this.dibujarFicha(this.matriz[index].x, this.matriz[index].y);
                 this.matriz[index].ocupada = true;
-                return {
+                celdaOcupada = {
                     posX: this.matriz[index].x,
-                    posY: this.matriz[index].y
+                    posY: this.matriz[index].y,
+                    celdaOcupada: true
                 }
-                
-            }
+
+            } 
         }
+        return celdaOcupada;
     }
 
     buscarUltimaFila(columna) {
