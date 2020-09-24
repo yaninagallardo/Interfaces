@@ -52,19 +52,30 @@ class Juego {
     }
 
     ubicarFicha(x, y) {
+        let ocupada = false;
         switch (this.jugadorActivo) {
             case 'jugador1':
-                this.jugador1.addFicha(x, y);
-                this.habilitarJugador(this.jugador1);
-                this.jugadorActivo = 'jugador2';
+                if (this.jugador1.turnoActivo) {
+                    ocupada = this.tablero.ocuparCelda(x, y);
+                    if (ocupada.celdaOcupada) {
+                        this.jugador1.addFicha(x, y);
+                        this.habilitarJugador(this.jugador2);
+                        this.jugadorActivo = 'jugador2';
+                    }
+                }
                 break;
             case 'jugador2':
-                this.jugador2.addFicha(x, y);
-                this.habilitarJugador(this.jugador2);
-                this.jugadorActivo = 'jugador1';
+                if (this.jugador2.turnoActivo) {
+                    ocupada = this.tablero.ocuparCelda(x, y);
+                    if (ocupada.celdaOcupada) {
+                        this.jugador2.addFicha(x, y);
+                        this.habilitarJugador(this.jugador1);
+                        this.jugadorActivo = 'jugador1';
+                    }
+                }
                 break;
         }
-        this.tablero.ocuparCelda(x, y);
+
     }
 
 
