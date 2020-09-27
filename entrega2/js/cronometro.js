@@ -14,6 +14,7 @@ class Cronometro {
     pararCronometro() {
         clearInterval(this.cronometro);
     }
+    
     reiniciarTiempo(){
         this.m.innerHTML = '00';
         this.s.innerHTML = '00';

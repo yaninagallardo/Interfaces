@@ -102,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
         cronometro.reiniciarTiempo();
         iniciarJuego.crearJuego();
     });
-
 });
 
 

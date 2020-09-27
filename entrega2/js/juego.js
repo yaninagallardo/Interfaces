@@ -55,8 +55,7 @@ class Juego {
                         this.habilitarJugador(this.jugador2, this.jugador1);
                         this.jugadorActivo = 'jugador2';
                         let result = this.controlFichas(this.jugador1, ocupada.fila, ocupada.columna);
-                        if(result){
-                            console.log('ganador');
+                        if (result) {
                             // Finalizar juego
                             this.finalizarJuego(this.jugador1.getNombre());
                         }
@@ -71,7 +70,7 @@ class Juego {
                         this.habilitarJugador(this.jugador1, this.jugador2);
                         this.jugadorActivo = 'jugador1';
                         let result = this.controlFichas(this.jugador2, ocupada.fila, ocupada.columna);
-                        if(result){
+                        if (result) {
                             // Finalizar juego
                             this.finalizarJuego(this.jugador2.getNombre());
                         }
@@ -85,7 +84,7 @@ class Juego {
         let matrizCeldas = this.tablero.getMatriz();
         let fichasPosicionadas = jugador.getFichas();
         let ficha = fichasPosicionadas[fichasPosicionadas.length - 1];
-        
+
         // control horizontal 
         let resultado = this.controlHorizontal(x, ficha, matrizCeldas);
         if (resultado) {
@@ -180,10 +179,12 @@ class Juego {
     // Diagonal 1
     controlDiagonalIzqArriba(x, y, ficha, matrizCeldas) {
         let contador = 0;
-        while (x > 0 && (ficha.getColor() === matrizCeldas[y - 1][x - 1]?.fichaColor)) {
-            contador++;
-            x--;
-            y--;
+        while ((x > 0 && y > 0)) {
+            if (ficha.getColor() === matrizCeldas[y - 1][x - 1]?.fichaColor) {
+                contador++;
+                x--;
+                y--;
+            }
         }
         return contador;
     }
@@ -242,7 +243,7 @@ class Juego {
 
     // -------------------- FINALIZAR JUEGO -----------------------------------
 
-    finalizarJuego(ganador){
+    finalizarJuego(ganador) {
         this.emiter.emit('finishedgame', ganador);
     }
 

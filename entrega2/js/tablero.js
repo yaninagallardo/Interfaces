@@ -29,8 +29,6 @@ class Tablero {
         return this.cantColumnas;
     }
 
-
-
     dibujaGrid() {
         let disX = this.sizeCuadro.width;
         let disY = this.sizeCuadro.height;
@@ -69,7 +67,6 @@ class Tablero {
             }
             columna++;
         }
-        
         this.calcularFichas();
     }
 
