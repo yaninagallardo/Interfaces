@@ -5,7 +5,6 @@ class Cronometro {
         this.m = document.getElementById("minutos");
         this.m.innerHTML = '00';
         this.s.innerHTML = '00';
-        this.mostrarTiempo();
     }
 
     getTiempo(){
@@ -15,8 +14,13 @@ class Cronometro {
     pararCronometro() {
         clearInterval(this.cronometro);
     }
+    reiniciarTiempo(){
+        this.m.innerHTML = '00';
+        this.s.innerHTML = '00';
+        this.iniciarTiempo();
+    }
 
-    mostrarTiempo() {
+    iniciarTiempo() {
         let contador_s = 0;
         let contador_m = 0;
         let m = this.m;

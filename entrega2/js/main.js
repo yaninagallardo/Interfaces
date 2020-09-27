@@ -5,11 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let modalInicio = document.querySelector("#modal-inicio");
     let modalGanador = document.querySelector("#modal-ganador");
 
-let cronometro = new Cronometro();
+    let cronometro = new Cronometro();
 
     let iniciarJuego;
     let jugador1;
     let jugador2;
+
     let emiter = new EventEmitter();
     const finishedgame = (data) => {
         vistaGanador(data);
@@ -26,6 +27,7 @@ let cronometro = new Cronometro();
             labelNombres[0].textContent = jugador1.getNombre();
             labelNombres[1].textContent = jugador2.getNombre();
             visibleContent(juego);
+            cronometro.iniciarTiempo();
         }, 600);
 
         let nombre1 = inputsNombres[0].value !== "" ? inputsNombres[0].value : "Jugador 1";
@@ -64,6 +66,9 @@ let cronometro = new Cronometro();
         }
     }, false);
 
+    /**
+     * Visibilizar / Esconder elementos HTML
+     */
     function hiddenContent(content) {
         content.classList.add("hidden");
     }
@@ -72,13 +77,13 @@ let cronometro = new Cronometro();
     }
 
     function vistaGanador(nombreGanador) {
-jugador1.setTurnoActivo(false);
-jugador2.setTurnoActivo(false);
+        jugador1.setTurnoActivo(false);
+        jugador2.setTurnoActivo(false);
 
         cronometro.pararCronometro();
-        
-        let labelGanador = document.querySelector("#nombre-ganador");
         let tiempoJugado = document.querySelector("#mostrar-tiempo");
+        let labelGanador = document.querySelector("#nombre-ganador");
+
         labelGanador.textContent = nombreGanador;
         tiempoJugado.textContent = cronometro.getTiempo();
 
@@ -94,6 +99,7 @@ jugador2.setTurnoActivo(false);
     });
     document.querySelector("#boton-reinicio").addEventListener("click", () => {
         hiddenContent(modalGanador);
+        cronometro.reiniciarTiempo();
         iniciarJuego.crearJuego();
     });
 
