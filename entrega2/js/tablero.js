@@ -1,9 +1,14 @@
-const imgFichaRojo = "./img/fichaRojo.png";
-const imgFichaAzul = "./img/fichaAzul.png";
-const imgFichaVerde = "./img/fichaVerde.png";
+const imgFichaRojo = "./img/fichas/rojo.png";
+const imgFichaRojoGanador = "./img/fichas/rojo-ganador.png";
 
+const imgFichaAzul = "./img/fichas/azul.png";
+const imgFichaAzulGanador = "./img/fichas/azul-ganador.png";
+
+const imgFondo = "./img/fondo2.jpg";
+const imgCirculo = "./img/fichas/ficha3d-blanco.png";
 
 class Tablero {
+    celdasOcupadas = [];
     constructor(canvas, ctx) {
         this.imgFicha = imgFichaRojo;
         this.canvas = canvas;
@@ -14,40 +19,37 @@ class Tablero {
         this.cantFilas = 0;
         this.matriz = [];
         this.sizeCuadro = { width: 50, height: 50 };
+        this.matrizCeldas = [];
     }
+
+    getCantFilas(){
+        return this.cantFilas;
+    }
+    getCantColumnas(){
+        return this.cantColumnas;
+    }
+
+
 
     dibujaGrid() {
         let disX = this.sizeCuadro.width;
         let disY = this.sizeCuadro.height;
-        let anchoLinea = 0.4;
-        let color = "#44414B";
-
-
-        this.ctx.lineWidth = anchoLinea;
-        this.ctx.strokeStyle = color;
 
         for (let i = 0; i < this.canvas.width; i += disX) {
-            this.ctx.beginPath();
-            this.ctx.moveTo(i, 0);
-            this.ctx.lineTo(i, this.canvas.height);
-            this.ctx.stroke();
             this.columnas.push(i);
         }
         for (let i = 0; i < this.canvas.height; i += disY) {
-            this.ctx.beginPath();
-            this.ctx.moveTo(0, i);
-            this.ctx.lineTo(this.canvas.width, i);
-            this.ctx.stroke();
             this.filas.push(i);
         }
         this.cantFilas = this.filas.length;
         this.cantColumnas = this.columnas.length;
         let fila = 0;
         let columna = 0;
-
-        for (let x = 0; x < this.columnas.length; x++) {
+        this.dibujarFondo();
+        for (let x = 0; x < this.cantColumnas; x++) {
+            this.matrizCeldas[columna] = [];
             fila = 0;
-            for (let y = 0; y < this.filas.length; y++) {
+            for (let y = 0; y < this.cantFilas; y++) {
                 let celda = {
                     x: this.columnas[x],
                     y: this.columnas[y],
@@ -55,44 +57,71 @@ class Tablero {
                     disY: disY,
                     ocupada: false,
                     fila: fila,
-                    columna: columna
+                    columna: columna,
+                    fichaColor: ""
                 }
                 this.matriz.push(celda);
+                this.matrizCeldas[columna][fila] = celda;
+                if(y > 0){
+                    this.dibujarFicha(celda.x, celda.y);
+                }
                 fila++;
             }
             columna++;
         }
+        
         this.calcularFichas();
-
     }
 
-    ocuparCelda(x, y) {
+    
+/**
+ * controla: celda desocupada, ultima posicion en X manteniendo posicion Y.
+ * 
+ * @param {*} x 
+ * @param {*} y 
+ * @param {*} color 
+ */
+    ocuparCelda(x, y, color) {
         let celdaOcupada = {
-            posX: 0,
-            posY: 0,
+            fila: 0,
+            columna: 0,
             celdaOcupada: false
         }
         for (let i = 0; i < this.matriz.length; i++) {
             if (!this.matriz[i].ocupada &&
-                x > this.matriz[i].x && //31 > 50 si
-                x < this.matriz[i].x + this.matriz[i].disX && //31 < 50 + 50 si
-                y > this.matriz[i].y && // 25 > 150 si
-                y < this.matriz[i].y + this.matriz[i].disY // 25 < 150 + 200 si
+                x > this.matriz[i].x && 
+                x < this.matriz[i].x + this.matriz[i].disX && 
+                y > this.matriz[i].y && 
+                y < this.matriz[i].y + this.matriz[i].disY 
             ) {
                 let index = this.buscarUltimaFila(this.matriz[i].columna);
-
-                this.dibujarFicha(this.matriz[index].x, this.matriz[index].y);
-                this.matriz[index].ocupada = true;
-                celdaOcupada = {
-                    posX: this.matriz[index].x,
-                    posY: this.matriz[index].y,
-                    celdaOcupada: true
+                if(this.matriz[index].fila > this.cantFilas - 6){
+                    this.setColor(color);
+                    this.dibujarFicha(this.matriz[index].x, this.matriz[index].y);
+    
+                    this.matriz[index].fichaColor = color;
+                    this.matrizCeldas[this.matriz[index].columna][this.matriz[index].fila].fichaColor = color;
+                    
+                    this.matriz[index].ocupada = true;
+                    celdaOcupada = {
+                        fila: this.matriz[index].fila,
+                        columna: this.matriz[index].columna,
+                        celdaOcupada: true
+                    }
                 }
-            } 
+            }
         }
         return celdaOcupada;
     }
 
+    getMatriz() {
+        return this.matrizCeldas;
+    }
+
+    /**
+     * Busqueda de ultima fila libre para insertar la nueva ficha
+     * @param {*} columna 
+     */
     buscarUltimaFila(columna) {
         for (let f = this.cantFilas - 1; f >= 0; f--) {
             let index = this.matriz.findIndex(x => x.columna === columna && x.fila === f);
@@ -102,10 +131,17 @@ class Tablero {
         }
     }
 
+    /**
+     * Calculo de cantidad de celdas disponibles en el tablero
+     */
     calcularFichas() {
         return this.cantFilas * this.cantColumnas;
     }
 
+    /**
+     * set del color de la ficha que se dibujara en el tablero
+     * @param {} color 
+     */
     setColor(color) {
         switch (color) {
             case 'rojo':
@@ -117,16 +153,27 @@ class Tablero {
         }
     }
 
+    // Dibujar Imagenes 
+    dibujarFondo() {
+        let background = new Image();
+        background.src = imgFondo;
+        let cargarimagen = function () {
+            this.ctx.drawImage(background, 0, 0, this.canvas.width, this.canvas.height);
+        }
+        background.onload = cargarimagen.bind(this);
+        this.imgFicha = imgCirculo;
+
+    }
+
     dibujarFicha(posX, posY) {
         let imageShow = new Image();
         imageShow.src = this.imgFicha;
         let cargarimagen = function () {
-            let imageScaledWidth = this.sizeCuadro.width - 2;
-            let imageScaledHeight = this.sizeCuadro.height - 2;
+            let imageScaledWidth = this.sizeCuadro.width - 5;
+            let imageScaledHeight = this.sizeCuadro.height - 5;
 
-            this.ctx.drawImage(imageShow, posX, posY, imageScaledWidth, imageScaledHeight);
+            this.ctx.drawImage(imageShow, (posX+2.5), (posY), imageScaledWidth, imageScaledHeight);
         }
         imageShow.onload = cargarimagen.bind(this);
     }
-
 }

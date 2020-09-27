@@ -1,33 +1,55 @@
+@font-face{
+    font-family: letra-tiza;
+    src: url("../font/pigmentDEMO.otf");
+}
+@font-face{
+    font-family: letra-tiza-titlo;
+    src: url("../font/RightChalk.ttf");
+}
+
 body{
     background-image: url("../img/wallpaper-madera.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-html{
-    height: 100%;
-}
-
-
-
-.contenedor{
-    margin-top: 10%;
-    display: flex;
-    flex-direction: row;
-}
-
-.contenedor>.contenedor-vista{
-    background-color: aliceblue;
-    width: 20%;
-    margin: 0 4%;
     
 }
 
-.contenedor-canvas{
-    width: 50%;
+.titulojuego{
+    font-size: 50px;
+    padding-top: 2%;
+    color: rgb(243, 241, 240);
+    font-family: letra-tiza-titlo;
+    text-shadow: rgb(15, 15, 15) 10px -5px 10px;
+}
+
+.usuario{
+    width: 8%;
+}
+
+.boton-inicio{
+    display: block;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    color: white;
+    background: rgb(76,195,52);
+    background: linear-gradient(158deg, rgba(76,195,52,1) 2%, rgba(24,98,28,1) 26%, rgba(19,209,5,1) 92%);  
+}
+
+.contenedor{
+    margin-top: 1%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.contenedor-vista{
+    width: 20%;
+    margin: 0 4%;    
 }
 
 #canvas{
+    border: 8px groove rgba(16,164,2,0.82);
     /* background-image: url("../img/tabler-sinfondo.png"); */
     /* background-repeat: no-repeat;
     background-size: cover; */
@@ -40,7 +62,102 @@ html{
 }
 
 .ficha{
-    width: 20%;
-    position: absolute; 
-    
+    width: 50%;
 }
+#tiempo{
+    padding-left: 10%;
+    font-size: 30px;
+    color: yellow;
+}
+
+.font-tiza{
+    font-family: letra-tiza;
+    color: white;
+}
+
+/* Modal */
+.modale {
+    padding: 2% ;
+    color: rgb(0, 0, 0);
+    position: fixed;
+    transition: all .5s;
+}
+.posicion-centralganador{
+    top: 20%;
+    left: 40%;
+    z-index: 100;
+}
+.posicion-centralinicio {    
+    width: 70%;
+    top: 10%;
+    left: 15%;
+}
+.borde-pizzarra{
+    border: 15px ridge #6e4419;
+    box-shadow: 11px 15px 60px 6px rgba(75, 74, 74, 0.966);
+}
+
+.fondo-pizarra{
+    /* Fondo */
+
+    background-image: url("../img/fondo-pizarra-negra.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.fondo-papiro{
+    /* Fondo */
+    background-image: url("../img/papel-papiro-marron.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.imagen-festejo{
+    width: 30%;
+}
+
+#nombre-ganador{
+    color: red;
+}
+
+.hidden{
+    visibility: hidden;
+}
+.visible{
+    visibility: visible;
+}
+
+.jugador-activo{
+    background-color: #55f12c9c;
+    padding: 5%;
+}
+
+/* FONT SIZES */
+.text-size-20{
+    font-size: 20px;
+}
+.text-size-24{
+    font-size: 24px;
+}
+
+
+.boton-modal{
+    text-decoration: none;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: helvetica;
+    font-weight: 300;
+    font-size: 25px;
+    font-style: italic;
+    color: #006505;
+    background-color: #82b085;
+    border-radius: 15px;
+    border: 3px double #006505;
+}
+
+.boton-modal:hover{
+    background-color: #00ff11;
+}
+
+
+

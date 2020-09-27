@@ -6,35 +6,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Segunda Entrega</title>
     <link rel="stylesheet" href="css/style.css">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 
 <body>
-    <div class="principal-contain">
-        <div class="contenedor">
-            <div class="contenedor-vista">
-                <label for="">holaaaaaaa</label>
-            </div>
-                <canvas #canvas id="canvas"></canvas>
-
-            <div class="contenedor-vista">
-                <label for="">chauuuuuuuu</label>
-                <div class="conjunto-fichas">
-                    <img class="ficha" style="left: 20px;top: 45px;" src="img/ficha.png" alt="">
-                    <!-- <img class="ficha" style="left: 30px;top: 55px;" src="img/ficha.png" alt="">
-                    <img class="ficha" style="left: 40px;top: 60px;" src="img/ficha.png" alt="">
-                    <img class="ficha" style="left: 70px;top: 50px;" src="img/ficha.png" alt=""> -->
+    <div class="principal-contain container-fluid mb-5">
+        <div class="d-flex justify-content-end pt-5 ml-5">
+                <p id="tiempo"><span id="minutos">0</span>:<span id="segundos">0</span></p> 
+        
+        </div>
+        <!-- Modal Inicio -->
+        <div id="modal-inicio" class="modale borde-pizzarra fondo-pizarra posicion-centralinicio text-center d-flex flex-column">
+            <label class="titulojuego">4 EN LINEA</label>
+            <div class="">
+                <div>
+                    <div class="row">
+                        <!-- nombre 1 -->
+                        <div class="col-12 d-flex flex-row justify-content-center mb-3">
+                            <input id="input-jugador" class="" type="text" placeholder="JUGADOR 1">
+                            <img class="usuario ml-2" src="img/fichas/rojo.png" alt="">
+                        </div>
+                        <!-- nombre 2 -->
+                        <div class="col-12 d-flex flex-row justify-content-center mb-3">
+                            <input id="input-jugador" type="text" placeholder="JUGADOR 2">
+                            <img class="usuario ml-2" src="img/fichas/azul.png" alt="">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button id="iniciar-juego" class="boton-inicio">Iniciar
+                    </div>
+                    </button>
                 </div>
             </div>
         </div>
+        <!-- Modal Ganador -->
+        <div  class="contenedor  mt-5">
+            
+            <!-- Juego -->
+            
+            <div class="hidden row" id="juego">
+                <div id="modal-ganador" class="modale fondo-papiro posicion-centralganador text-center d-flex flex-column hidden">
+                    <label>¡GANADOR!</label>
+                    <label id="nombre-ganador"></label>
+                    <div class="d-flex flex-row justify-content-around">
+                        <div class="d-flex flex-column">
+                            <label id="mostrar-tiempo"></label>
+                            <button id="boton-reinicio" class="mb-3 boton-modal">Volver a Jugar</button>
+                            <button id="boton-modalinicio" class="boton-modal">Inicio</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- JUGADOR 1 -->
+                <div class="contenedor-vista borde-pizzarra fondo-pizarra col-3">
+                    <label id="nombre-jugador" class="font-tiza text-size-24"></label>
+                    <div>
+                        <label id="fichas-jugador1" class="font-tiza text-size-20"></label>
+                    </div>
+                    <div class="conjunto-fichas">
+                        <img class="ficha ficha1" src="img/fichas/rojo-acostado.png" alt="rojo">
+                    </div>
+                    <hr style="background-color: aliceblue;">
+                    <!-- JUGADOR 2 -->
+                    <label id="nombre-jugador" class="font-tiza text-size-24"></label>
+                    <div>
+                        <label id="fichas-jugador2" class="font-tiza text-size-20"></label>
+                    </div>
+                    <div class="conjunto-fichas">
+                        <img class="ficha ficha2" src="img/fichas/azul-acostado.png" alt="azul">
+                        <!-- <img class="ficha" style="left: 30px;top: 55px;" src="img/ficha.png" alt="">
+                    <img class="ficha" style="left: 40px;top: 60px;" src="img/ficha.png" alt="">
+                    <img class="ficha" style="left: 70px;top: 50px;" src="img/ficha.png" alt=""> -->
+                    </div>
+                </div>
+                <div class="col-8">
+                    <canvas #canvas id="canvas"></canvas>
+                    
+                </div>
+
+            </div>
+        </div>
     </div>
+
     <script src="js/main.js"></script>
     <script src="js/tablero.js"></script>
     <script src="js/juego.js"></script>
     <script src="js/Jugador.js"></script>
     <script src="js/ficha.js"></script>
     <script src="js/eventemiter.js"></script>
+    <script src="js/cronometro.js"></script>
 </body>
 
 </html>

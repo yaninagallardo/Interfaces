@@ -1,8 +1,10 @@
 class Ficha {
 
-    constructor(x, y) {
+    constructor(x, y, color) {
         this.posX = x;
         this.posY = y;
+        this.color = color;
+        
     }
 
     getPosicion() {
@@ -12,8 +14,13 @@ class Ficha {
         }
     }
 
-    setPosicion(x, y) {
+    setFicha(x, y, color) {
         this.posX = x;
         this.posY = y;
+        this.color = color;
+    }
+
+    getColor(){
+        return this.color;
     }
 }

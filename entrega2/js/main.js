@@ -1,73 +1,103 @@
 "use strict"
+
 document.addEventListener("DOMContentLoaded", () => {
+    let juego = document.querySelector("#juego");
+    let modalInicio = document.querySelector("#modal-inicio");
+    let modalGanador = document.querySelector("#modal-ganador");
 
-    let canvas = document.querySelector("#canvas");
-    // let canvasPosicion;
-    canvas.width = 500;
-    canvas.height = 300;
-    let ctx = canvas.getContext('2d');
-    const juego = new Juego(canvas, ctx);
+let cronometro = new Cronometro();
 
-    const emiter = new EventEmitter();
-    const totalFichas = (data) => {};
-    // emiter.on('testEvent', tableroCargado);
-    
+    let iniciarJuego;
+    let jugador1;
+    let jugador2;
+    let emiter = new EventEmitter();
+    const finishedgame = (data) => {
+        vistaGanador(data);
+    };
+    emiter.on('finishedgame', finishedgame);
 
+    // Iniciar Juego
+    document.querySelector("#iniciar-juego")?.addEventListener("click", () => {
+        let inputsNombres = document.querySelectorAll("#input-jugador");
+        hiddenContent(modalInicio);
 
-    // var mouse = false;
-    // var columnas = [];
-    // var filas = [];
-    // document.querySelector(".ficha").addEventListener("mouseup", function (event) {
-    //     console.log('strat ', event);
+        let labelNombres = document.querySelectorAll("#nombre-jugador");
+        setTimeout(() => {
+            labelNombres[0].textContent = jugador1.getNombre();
+            labelNombres[1].textContent = jugador2.getNombre();
+            visibleContent(juego);
+        }, 600);
 
-    //     //  canvasPosicion = canvas.getBoundingClientRect();
-    // }, false);
-    // document.querySelector(".ficha").addEventListener("mousedown", function (e) {
-    //     console.log('move ', e);
+        let nombre1 = inputsNombres[0].value !== "" ? inputsNombres[0].value : "Jugador 1";
+        let nombre2 = inputsNombres[1].value !== "" ? inputsNombres[1].value : "Jugador 2";
 
-    // }, false);
-    // document.querySelector(".ficha").addEventListener("drag", function (e) {
-    //     console.log('move ', e);
+        jugador1 = new Jugador(nombre1, 1, labelNombres[0]);
+        jugador2 = new Jugador(nombre2, 2, labelNombres[1]);
 
-    // }, false);
-    // document.querySelector(".ficha").addEventListener("mousedown", function (e) {
-    //     console.log('end ', e);
-    //     let obj = { //objeto
-    //         x: Math.round(e.offsetX),
-    //         y: Math.round(e.offsetY)
-    //     }
-    //   tablero.dibujarFicha(obj.x, obj.y);
+        carga(jugador1, jugador2);
+    });
 
-    // }, false);
-    // document.querySelector(".ficha").addEventListener("mouseup", function (e) {
-    //     console.log('up');
-    // let obj = { //objeto
-    //     x: Math.round(e.layerX),
-    //     y: Math.round(e.layerY)
-    // }
-    // tablero.ocuparCelda(obj.x, obj.y);
-    // }, false);
-    // document.querySelector(".ficha").addEventListener("dragend", function (e) {
-    //     console.log('down' , e);
-    //     let obj = { //objeto
-    //         x: Math.round(e.layerX),
-    //         y: Math.round(e.layerY)
-    //     }
-    //     tablero.ocuparCelda(obj.x, obj.y);
-    // }, false);
-
-
-    // /**click */
-    canvas.onmousedown = function (e) {
-        let obj = { //objeto
-            x: Math.round(e.layerX),
-            y: Math.round(e.layerY)
-        }
-        juego.ubicarFicha(obj.x, obj.y);
-        // emiter.emit('testEvent', 'hi'); // Was fired: hi
+    function carga(jugador1, jugador2) {
+        iniciarJuego = new Juego(jugador1, jugador2, emiter);
     }
 
+    // Drag Ficha Rojo
+    document.querySelector(".ficha1")?.addEventListener("dragend", function (e) {
+        if (jugador1.getTurnoActivo()) {
+            let canvasPosicion = canvas.getBoundingClientRect();
+            let obj = { //objeto posicion x, y
+                x: Math.round(e.pageX - canvasPosicion.x),
+                y: Math.round(e.pageY - canvasPosicion.y)
+            }
+            iniciarJuego.ubicarFicha(obj.x, obj.y);
+        }
+    }, false);
+    // Drag Ficha Azul
+    document.querySelector(".ficha2")?.addEventListener("dragend", function (e) {
+        if (jugador2.getTurnoActivo()) {
+            let canvasPosicion = canvas.getBoundingClientRect();
+            let obj = { //objeto posicion x, y
+                x: Math.round(e.pageX - canvasPosicion.x),
+                y: Math.round(e.pageY - canvasPosicion.y)
+            }
+            iniciarJuego.ubicarFicha(obj.x, obj.y);
+        }
+    }, false);
 
+    function hiddenContent(content) {
+        content.classList.add("hidden");
+    }
+    function visibleContent(content) {
+        content.classList.remove("hidden");
+    }
 
+    function vistaGanador(nombreGanador) {
+jugador1.setTurnoActivo(false);
+jugador2.setTurnoActivo(false);
+
+        cronometro.pararCronometro();
+        
+        let labelGanador = document.querySelector("#nombre-ganador");
+        let tiempoJugado = document.querySelector("#mostrar-tiempo");
+        labelGanador.textContent = nombreGanador;
+        tiempoJugado.textContent = cronometro.getTiempo();
+
+        visibleContent(modalGanador);
+    }
+
+    document.querySelector("#boton-modalinicio").addEventListener("click", () => {
+        hiddenContent(modalGanador);
+        hiddenContent(juego);
+        setTimeout(() => {
+            visibleContent(modalInicio);
+        }, 700);
+    });
+    document.querySelector("#boton-reinicio").addEventListener("click", () => {
+        hiddenContent(modalGanador);
+        iniciarJuego.crearJuego();
+    });
 
 });
+
+
+
