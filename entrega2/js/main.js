@@ -102,6 +102,11 @@ document.addEventListener("DOMContentLoaded", () => {
         cronometro.reiniciarTiempo();
         iniciarJuego.crearJuego();
     });
+    document.querySelector("#content-canvas").addEventListener("drop", (e) => {
+        console.log(e);
+        e.preventDefault();
+    });
+
 });
 
 
