@@ -105,11 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
         carga(jugador1, jugador2);
         cronometro.reiniciarTiempo();
     });
-
-    document.querySelector("#content-canvas").addEventListener("drop", (e) => {
-        console.log(e);
-        e.preventDefault();
-    });
 });
 
 

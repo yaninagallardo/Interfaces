@@ -78,7 +78,6 @@ class Tablero {
      * @param {*} color 
      */
     ocuparCelda(x, y, color) {
-        console.log('ocupar');
         let celdaOcupada = {
             fila: 0,
             columna: 0,

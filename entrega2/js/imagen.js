@@ -17,7 +17,6 @@ class Imagen {
     }
 
     dibujarFicha(posX, posY, imgFicha) {
-        console.log('dibuja ficha');
         let imageShow = new Image();
         imageShow.src = imgFicha;
 
