@@ -4,13 +4,12 @@ const imgFichaRojoGanador = "./img/fichas/rojo-ganador.png";
 const imgFichaAzul = "./img/fichas/azul.png";
 const imgFichaAzulGanador = "./img/fichas/azul-ganador.png";
 
-const imgFondo = "./img/fondo2.jpg";
 const imgCirculo = "./img/fichas/ficha3d-blanco.png";
 
 class Tablero {
     celdasOcupadas = [];
     constructor(canvas, ctx) {
-        this.imgFicha = imgFichaRojo;
+        this.imgFicha = imgCirculo;
         this.canvas = canvas;
         this.ctx = ctx;
         this.columnas = [];
@@ -20,6 +19,7 @@ class Tablero {
         this.matriz = [];
         this.sizeCuadro = { width: 50, height: 50 };
         this.matrizCeldas = [];
+        this.imagenes = new Imagen(this.ctx, this.sizeCuadro);
     }
 
     getCantFilas(){
@@ -43,7 +43,7 @@ class Tablero {
         this.cantColumnas = this.columnas.length;
         let fila = 0;
         let columna = 0;
-        this.dibujarFondo();
+        this.imagenes.dibujarFondo(this.canvas.width, this.canvas.height);
         for (let x = 0; x < this.cantColumnas; x++) {
             this.matrizCeldas[columna] = [];
             fila = 0;
@@ -61,7 +61,7 @@ class Tablero {
                 this.matriz.push(celda);
                 this.matrizCeldas[columna][fila] = celda;
                 if(y > 0){
-                    this.dibujarFicha(celda.x, celda.y);
+                    this.imagenes.dibujarFicha(celda.x, celda.y, this.imgFicha);
                 }
                 fila++;
             }
@@ -69,7 +69,6 @@ class Tablero {
         }
         this.calcularFichas();
     }
-
     
 /**
  * controla: celda desocupada, ultima posicion en X manteniendo posicion Y.
@@ -94,7 +93,7 @@ class Tablero {
                 let index = this.buscarUltimaFila(this.matriz[i].columna);
                 if(this.matriz[index].fila > this.cantFilas - 6){
                     this.setColor(color);
-                    this.dibujarFicha(this.matriz[index].x, this.matriz[index].y);
+                    this.imagenes.dibujarFicha(this.matriz[index].x, this.matriz[index].y, this.imgFicha);
     
                     this.matriz[index].fichaColor = color;
                     this.matrizCeldas[this.matriz[index].columna][this.matriz[index].fila].fichaColor = color;
@@ -150,27 +149,13 @@ class Tablero {
         }
     }
 
-    // Dibujar Imagenes 
-    dibujarFondo() {
-        let background = new Image();
-        background.src = imgFondo;
-        let cargarimagen = function () {
-            this.ctx.drawImage(background, 0, 0, this.canvas.width, this.canvas.height);
-        }
-        background.onload = cargarimagen.bind(this);
-        this.imgFicha = imgCirculo;
 
-    }
 
-    dibujarFicha(posX, posY) {
-        let imageShow = new Image();
-        imageShow.src = this.imgFicha;
-        let cargarimagen = function () {
-            let imageScaledWidth = this.sizeCuadro.width - 5;
-            let imageScaledHeight = this.sizeCuadro.height - 5;
-
-            this.ctx.drawImage(imageShow, (posX+2.5), (posY), imageScaledWidth, imageScaledHeight);
-        }
-        imageShow.onload = cargarimagen.bind(this);
+    // necesita la posicion X o Y y no la fila o columna
+    dibujarGanadoras(fichasGanadoras){
+        let color = fichasGanadoras[0].getColor();
+        fichasGanadoras.forEach(ficha => {
+            // this.imagenes.dibujarFicha(ficha.posX)
+        });
     }
 }
