@@ -11,7 +11,7 @@ class Juego {
         this.canvas.width = 500;
         this.canvas.height = 300;
         this.ctx = this.canvas.getContext('2d');
-        
+
         this.crearJuego();
     }
 
@@ -22,11 +22,15 @@ class Juego {
         jugador.setTurnoActivo(false);
     }
 
+    iniciarJuego() {
+        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    
     crearJuego() {
         this.tablero = new Tablero(this.canvas, this.ctx);
         this.tablero.dibujaGrid();
         this.controladorJugada = new ControladorJugada(this.tablero);
-
+        console.log(this.controladorJugada, '- control');
         let total = this.dividirFichas(this.tablero.calcularFichas());
         this.jugador1.setFichasRestantes(total);
         this.jugador2.setFichasRestantes(total);

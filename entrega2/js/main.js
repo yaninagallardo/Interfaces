@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, false);
     // Drag Ficha Azul
     document.querySelector(".ficha2")?.addEventListener("dragend", function (e) {
+        
         if (jugador2.getTurnoActivo()) {
             let canvasPosicion = canvas.getBoundingClientRect();
             let obj = { //objeto posicion x, y
@@ -99,14 +100,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     document.querySelector("#boton-reinicio").addEventListener("click", () => {
         hiddenContent(modalGanador);
+        iniciarJuego.iniciarJuego();
+        iniciarJuego = null;
+        carga(jugador1, jugador2);
         cronometro.reiniciarTiempo();
-        iniciarJuego.crearJuego();
     });
+
     document.querySelector("#content-canvas").addEventListener("drop", (e) => {
         console.log(e);
         e.preventDefault();
     });
-
 });
 
 

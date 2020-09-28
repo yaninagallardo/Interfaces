@@ -22,10 +22,10 @@ class Tablero {
         this.imagenes = new Imagen(this.ctx, this.sizeCuadro);
     }
 
-    getCantFilas(){
+    getCantFilas() {
         return this.cantFilas;
     }
-    getCantColumnas(){
+    getCantColumnas() {
         return this.cantColumnas;
     }
 
@@ -60,7 +60,7 @@ class Tablero {
                 }
                 this.matriz.push(celda);
                 this.matrizCeldas[columna][fila] = celda;
-                if(y > 0){
+                if (y > 0) {
                     this.imagenes.dibujarFicha(celda.x, celda.y, this.imgFicha);
                 }
                 fila++;
@@ -69,15 +69,16 @@ class Tablero {
         }
         this.calcularFichas();
     }
-    
-/**
- * controla: celda desocupada, ultima posicion en X manteniendo posicion Y.
- * 
- * @param {*} x 
- * @param {*} y 
- * @param {*} color 
- */
+
+    /**
+     * controla: celda desocupada, ultima posicion en X manteniendo posicion Y.
+     * 
+     * @param {*} x 
+     * @param {*} y 
+     * @param {*} color 
+     */
     ocuparCelda(x, y, color) {
+        console.log('ocupar');
         let celdaOcupada = {
             fila: 0,
             columna: 0,
@@ -85,19 +86,19 @@ class Tablero {
         }
         for (let i = 0; i < this.matriz.length; i++) {
             if (!this.matriz[i].ocupada &&
-                x > this.matriz[i].x && 
-                x < this.matriz[i].x + this.matriz[i].disX && 
-                y > this.matriz[i].y && 
-                y < this.matriz[i].y + this.matriz[i].disY 
+                x > this.matriz[i].x &&
+                x < this.matriz[i].x + this.matriz[i].disX &&
+                y > this.matriz[i].y &&
+                y < this.matriz[i].y + this.matriz[i].disY
             ) {
                 let index = this.buscarUltimaFila(this.matriz[i].columna);
-                if(this.matriz[index].fila > this.cantFilas - 6){
+                if (this.matriz[index].fila > this.cantFilas - 6) {
                     this.setColor(color);
                     this.imagenes.dibujarFicha(this.matriz[index].x, this.matriz[index].y, this.imgFicha);
-    
+
                     this.matriz[index].fichaColor = color;
                     this.matrizCeldas[this.matriz[index].columna][this.matriz[index].fila].fichaColor = color;
-                    
+
                     this.matriz[index].ocupada = true;
                     celdaOcupada = {
                         fila: this.matriz[index].fila,
@@ -149,10 +150,8 @@ class Tablero {
         }
     }
 
-
-
     // necesita la posicion X o Y y no la fila o columna
-    dibujarGanadoras(fichasGanadoras){
+    dibujarGanadoras(fichasGanadoras) {
         let color = fichasGanadoras[0].getColor();
         fichasGanadoras.forEach(ficha => {
             // this.imagenes.dibujarFicha(ficha.posX)
