@@ -1,11 +1,22 @@
-class ControladorJugada{
-    constructor(tablero){
+class ControladorJugada {
+    constructor(tablero) {
         this.tablero = tablero;
         this.filas = this.tablero.getCantFilas();
         this.columnas = this.tablero.getCantColumnas();
+        this.fichasGanadoras = [];
+    }
+
+    vaciarArregloFichas() {
+        this.fichasGanadoras = [];
+    }
+
+    getFichasGanadoras() {
+        return this.fichasGanadoras;
     }
 
     controlFichas(jugador, x, y) {
+        this.vaciarArregloFichas();
+
         let matrizCeldas = this.tablero.getMatriz();
         let fichasPosicionadas = jugador.getFichas();
         let ficha = fichasPosicionadas[fichasPosicionadas.length - 1];
@@ -13,14 +24,17 @@ class ControladorJugada{
         // control horizontal 
         let resultado = this.controlHorizontal(x, ficha, matrizCeldas);
         if (resultado) {
+            this.fichasGanadoras.push(ficha);
             return true;
         } else {
             // control vertical
             let resultado = this.controlVertical(y, ficha, matrizCeldas);
             if (resultado) {
+                this.fichasGanadoras.push(ficha);
                 return true;
             } else {
                 // control diagonal
+                this.fichasGanadoras.push(ficha);
                 return this.controlDiagonal(x, y, ficha, matrizCeldas);
             }
         }
@@ -44,6 +58,7 @@ class ControladorJugada{
         let y = ficha.posY;
 
         while (y - 1 >= 0 && (ficha.getColor() === matrizCeldas[y - 1][x]?.fichaColor)) {
+            this.fichasGanadoras.push(ficha);
             contador++;
             y--;
         }
@@ -55,6 +70,7 @@ class ControladorJugada{
         let contador = 0;
         let y = ficha.posY;
         while (y < matrizCeldas[y].length && (ficha.getColor() === matrizCeldas[y + 1][x]?.fichaColor)) {
+            this.fichasGanadoras.push(ficha);
             contador++;
             y++;
         }
@@ -67,6 +83,7 @@ class ControladorJugada{
         let x = ficha.posX;
         let cantFilas = matrizCeldas[y].length;
         while (x < cantFilas - 1 && (ficha.getColor() === matrizCeldas[y][x + 1]?.fichaColor)) {
+            this.fichasGanadoras.push(ficha);
             contador++;
             x++;
         }
@@ -76,9 +93,7 @@ class ControladorJugada{
     // DIAGONAL
 
     controlDiagonal(x, y, ficha, matrizCeldas) {
-        
         let contador = 1;
-
         // Diagonal 1
         contador += this.controlDiagonalIzqArriba(x, y, ficha, matrizCeldas);
         if (this.esGanador(contador)) {
@@ -106,6 +121,7 @@ class ControladorJugada{
     controlDiagonalIzqArriba(x, y, ficha, matrizCeldas) {
         let contador = 0;
         while ((x > 0 && y > 0) && ficha.getColor() === matrizCeldas[y - 1][x - 1]?.fichaColor) {
+            this.fichasGanadoras.push(ficha);
             contador++;
             x--;
             y--;
@@ -120,6 +136,7 @@ class ControladorJugada{
             && x < this.filas
             && y < this.columnas
             && (ficha.getColor() === matrizCeldas[y + 1][x + 1]?.fichaColor)) {
+            this.fichasGanadoras.push(ficha);
             contador++;
             x++;
             y++;
@@ -135,6 +152,7 @@ class ControladorJugada{
             && x < this.filas
             && y < this.columnas
             && (ficha.getColor() === matrizCeldas[y + 1][x - 1]?.fichaColor)) {
+            this.fichasGanadoras.push(ficha);
             contador++;
             x--;
             y++;
@@ -148,6 +166,7 @@ class ControladorJugada{
             && x < this.filas
             && y < this.columnas
             && (ficha.getColor() === matrizCeldas[y - 1][x + 1]?.fichaColor)) {
+            this.fichasGanadoras.push(ficha);
             contador++;
             x++;
             y--;
@@ -160,6 +179,7 @@ class ControladorJugada{
         if (cantFichas >= maxFichasGanadoras) {
             return true;
         } else {
+            this.vaciarArregloFichas();
             return false;
         }
     }
