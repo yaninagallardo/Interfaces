@@ -8,13 +8,16 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 </head>
 
 <body>
     <div class="principal-contain container-fluid mb-5">
-        
+
         <!-- Modal Inicio -->
-        <div id="modal-inicio" class="modale borde-pizzarra fondo-pizarra posicion-centralinicio text-center d-flex flex-column">
+        <div id="modal-inicio"
+            class="modale borde-pizzarra fondo-pizarra posicion-centralinicio text-center d-flex flex-column">
             <label class="titulojuego">4 EN LINEA</label>
             <div class="">
                 <div>
@@ -38,12 +41,17 @@
             </div>
         </div>
         <!-- Modal Ganador -->
-        <div  class="contenedor  mt-5">
-            
+        <div class="contenedor  mt-5">
+
             <!-- Juego -->
-            
+
             <div class="hidden row" id="juego">
-                <div id="modal-ganador" class="modale fondo-papiro posicion-centralganador text-center d-flex flex-column hidden">
+                <div class="col-12 mb-2 d-flex justify-content-end">
+                    <button id="boton-salir"><i class="fas fa-door-open"></i></button>
+                </div>
+
+                <div id="modal-ganador"
+                    class="modale fondo-papiro posicion-centralganador text-center d-flex flex-column hidden">
                     <label>¡GANADOR!</label>
                     <label id="nombre-ganador"></label>
                     <div class="d-flex flex-row justify-content-around">
@@ -56,8 +64,8 @@
                 </div>
                 <!-- JUGADOR 1 -->
                 <div class="contenedor-vista borde-pizzarra fondo-pizarra col-3">
-                        <p id="tiempo"><span id="minutos">0</span>:<span id="segundos">0</span></p> 
-                        <hr style="background-color: aliceblue;">
+                    <p id="tiempo"><span id="minutos">0</span>:<span id="segundos">0</span></p>
+                    <hr style="background-color: aliceblue;">
                     <label id="nombre-jugador" class="font-tiza text-size-24"></label>
                     <div>
                         <label id="fichas-jugador1" class="font-tiza text-size-20"></label>
@@ -80,7 +88,7 @@
                 </div>
                 <div id="content-canvas" class="col-8">
                     <canvas #canvas id="canvas"></canvas>
-                    
+
                 </div>
 
             </div>

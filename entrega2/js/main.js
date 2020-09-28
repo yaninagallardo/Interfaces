@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     emiter.on('finishedgame', finishedgame);
 
-    // Iniciar Juego
+    // Iniciar Juego desde boton
     document.querySelector("#iniciar-juego")?.addEventListener("click", () => {
         let inputsNombres = document.querySelectorAll("#input-jugador");
         hiddenContent(modalInicio);
@@ -36,10 +36,11 @@ document.addEventListener("DOMContentLoaded", () => {
         jugador1 = new Jugador(nombre1, 1, labelNombres[0]);
         jugador2 = new Jugador(nombre2, 2, labelNombres[1]);
 
-        carga(jugador1, jugador2);
+        cargarJuego(jugador1, jugador2);
     });
 
-    function carga(jugador1, jugador2) {
+// Carga de juego
+    function cargarJuego(jugador1, jugador2) {
         iniciarJuego = new Juego(jugador1, jugador2, emiter);
     }
 
@@ -54,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
             iniciarJuego.ubicarFicha(obj.x, obj.y);
         }
     }, false);
+
     // Drag Ficha Azul
     document.querySelector(".ficha2")?.addEventListener("dragend", function (e) {
         
@@ -77,6 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
         content.classList.remove("hidden");
     }
 
+    // Mostrar Ganador
     function vistaGanador(nombreGanador) {
         jugador1.setTurnoActivo(false);
         jugador2.setTurnoActivo(false);
@@ -91,12 +94,20 @@ document.addEventListener("DOMContentLoaded", () => {
         visibleContent(modalGanador);
     }
 
-    document.querySelector("#boton-modalinicio").addEventListener("click", () => {
-        hiddenContent(modalGanador);
+    function mostrarInicio(){
         hiddenContent(juego);
         setTimeout(() => {
             visibleContent(modalInicio);
-        }, 700);
+        }, 100);
+    }
+
+    // Funciones para botones de modal vista ganador
+    document.querySelector("#boton-modalinicio").addEventListener("click", () => {
+        hiddenContent(modalGanador);
+        mostrarInicio();
+    });
+    document.querySelector("#boton-salir").addEventListener("click", () => {
+        mostrarInicio();
     });
     document.querySelector("#boton-reinicio").addEventListener("click", () => {
         hiddenContent(modalGanador);
