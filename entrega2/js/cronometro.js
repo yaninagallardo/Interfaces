@@ -5,48 +5,56 @@ class Cronometro {
         this.m = document.getElementById("minutos");
         this.m.innerHTML = '00';
         this.s.innerHTML = '00';
+        this.timerOn = false;
     }
 
-    getTiempo(){
+    getTiempo() {
         return 'Tiempo: ' + this.m.innerHTML + ':' + this.s.innerHTML;
     }
 
     pararCronometro() {
+        console.log(this.cronometro);
         clearInterval(this.cronometro);
+        this.timerOn = false;
     }
-    
-    reiniciarTiempo(){
+
+    reiniciarTiempo() {
         this.m.innerHTML = '00';
         this.s.innerHTML = '00';
-        this.iniciarTiempo();
     }
 
     iniciarTiempo() {
+        this.pararCronometro();
         let contador_s = 0;
         let contador_m = 0;
         let m = this.m;
         let s = this.s;
-        this.cronometro = setInterval(
-            function () {
-                if (contador_s == 60) {
-                    contador_s = 0;
-                    contador_m++;
-                    if (contador_m < 10) {
-                        m.innerHTML = '0' + contador_m;
+        if (!this.timerOn) {
+            this.cronometro = setInterval(
+                function () {
+                    this.timerOn = true;
+                    console.log('fint', this.cronometro);
+                    if (contador_s == 60) {
+                        contador_s = 0;
+                        contador_m++;
+                        if (contador_m < 10) {
+                            m.innerHTML = '0' + contador_m;
+                        } else {
+                            m.innerHTML = contador_m;
+                        }
+                        if (contador_m == 60) {
+                            contador_m = 0;
+                        }
+                    }
+                    if (contador_s < 10) {
+                        s.innerHTML = '0' + contador_s;
                     } else {
-                        m.innerHTML = contador_m;
+                        s.innerHTML = contador_s;
                     }
-                    if (contador_m == 60) {
-                        contador_m = 0;
-                    }
+                    contador_s++;
                 }
-                if (contador_s < 10) {
-                    s.innerHTML = '0' + contador_s;
-                } else {
-                    s.innerHTML = contador_s;
-                }
-                contador_s++;
-            }
-            , 1000);
+                , 1000);
+                console.log('init ', this.cronometro);
+        }
     }
 }

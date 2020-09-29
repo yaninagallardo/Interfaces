@@ -1,10 +1,13 @@
 "use strict"
 
 document.addEventListener("DOMContentLoaded", () => {
+    const fichaAcostadaRojo = "./img/fichas/rojo-acostado.png";
+    const fichaAcostadaAzul = "./img/fichas/azul-acostado.png";
+
     let juego = document.querySelector("#juego");
     let modalInicio = document.querySelector("#modal-inicio");
     let modalGanador = document.querySelector("#modal-ganador");
-
+    let div = document.querySelector("#conjuntofichas1");
     let cronometro = new Cronometro();
 
     let iniciarJuego;
@@ -27,8 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
             labelNombres[0].textContent = jugador1.getNombre();
             labelNombres[1].textContent = jugador2.getNombre();
             visibleContent(juego);
-            cronometro.iniciarTiempo();
         }, 600);
+        crearCronometro();
 
         let nombre1 = inputsNombres[0].value !== "" ? inputsNombres[0].value : "Jugador 1";
         let nombre2 = inputsNombres[1].value !== "" ? inputsNombres[1].value : "Jugador 2";
@@ -39,26 +42,27 @@ document.addEventListener("DOMContentLoaded", () => {
         cargarJuego(jugador1, jugador2);
     });
 
-// Carga de juego
+    // Carga de juego
     function cargarJuego(jugador1, jugador2) {
         iniciarJuego = new Juego(jugador1, jugador2, emiter);
+        // cargaFichas();
     }
 
-    // Drag Ficha Rojo
     document.querySelector(".ficha1")?.addEventListener("dragend", function (e) {
-        if (jugador1.getTurnoActivo()) {
-            let canvasPosicion = canvas.getBoundingClientRect();
-            let obj = { //objeto posicion x, y
-                x: Math.round(e.pageX - canvasPosicion.x),
-                y: Math.round(e.pageY - canvasPosicion.y)
+            if (jugador1.getTurnoActivo()) {
+                let canvasPosicion = canvas.getBoundingClientRect();
+                let obj = { //objeto posicion x, y
+                    x: Math.round(e.pageX - canvasPosicion.x),
+                    y: Math.round(e.pageY - canvasPosicion.y)
+                }
+                iniciarJuego.ubicarFicha(obj.x, obj.y);
+                
             }
-            iniciarJuego.ubicarFicha(obj.x, obj.y);
-        }
-    }, false);
+        }, false);
 
     // Drag Ficha Azul
     document.querySelector(".ficha2")?.addEventListener("dragend", function (e) {
-        
+
         if (jugador2.getTurnoActivo()) {
             let canvasPosicion = canvas.getBoundingClientRect();
             let obj = { //objeto posicion x, y
@@ -94,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
         visibleContent(modalGanador);
     }
 
-    function mostrarInicio(){
+    function mostrarInicio() {
         hiddenContent(juego);
         setTimeout(() => {
             visibleContent(modalInicio);
@@ -108,14 +112,67 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     document.querySelector("#boton-salir").addEventListener("click", () => {
         mostrarInicio();
+        cronometro.pararCronometro();
     });
     document.querySelector("#boton-reinicio").addEventListener("click", () => {
         hiddenContent(modalGanador);
         iniciarJuego.limpiarCanvas();
         iniciarJuego = null;
         cargarJuego(jugador1, jugador2);
-        cronometro.reiniciarTiempo();
+        cronometro.pararCronometro();
+        cronometro.iniciarTiempo();
     });
+
+    function crearCronometro(){
+        cronometro = null;
+        cronometro = new Cronometro();
+        cronometro.iniciarTiempo();
+    }
+
+    function cargaFichas() {
+        let top = 1;
+        let left = 10;
+        let cantTotal = iniciarJuego.getCantFichas();
+        for (let index = 1; index < 2; index++) {
+            top += 1;
+            left += 1;
+
+            let img = document.createElement("IMG");
+            img.classList.add("ficha");
+            img.classList.add("ficha1");
+            img.setAttribute("src", fichaAcostadaRojo);
+            img.style.marginTop = top + 'px';
+            img.style.marginLeft = left + 'px';
+
+            div.appendChild(img);
+            switch(index){
+                case 5:
+                    top += 2;
+                    left += 2;
+            }
+        }
+        eventsDragFicha();
+    }
+    
+    // Drag Ficha Rojo
+    function eventsDragFicha() {
+        let fichas = document.querySelectorAll(".ficha1");
+
+        fichas?.forEach(el => {
+            el.addEventListener("dragend", function (e) {
+                if (jugador1.getTurnoActivo()) {
+                    let canvasPosicion = canvas.getBoundingClientRect();
+                    let obj = { //objeto posicion x, y
+                        x: Math.round(e.pageX - canvasPosicion.x),
+                        y: Math.round(e.pageY - canvasPosicion.y)
+                    }
+                    iniciarJuego.ubicarFicha(obj.x, obj.y);
+                    // div.removeChild(el);
+                }
+            }, false);
+
+        });
+    }
 });
 
 
