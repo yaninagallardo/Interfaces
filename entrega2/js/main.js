@@ -111,9 +111,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     document.querySelector("#boton-reinicio").addEventListener("click", () => {
         hiddenContent(modalGanador);
-        iniciarJuego.iniciarJuego();
+        iniciarJuego.limpiarCanvas();
         iniciarJuego = null;
-        carga(jugador1, jugador2);
+        cargarJuego(jugador1, jugador2);
         cronometro.reiniciarTiempo();
     });
 });

@@ -19,8 +19,8 @@ class Jugador {
         return this.fichasAgregadas;
     }
 
-    addFicha(x, y) {
-        let ficha = new Ficha(x, y, this.color);
+    addFicha(x, y, fila, columna) {
+        let ficha = new Ficha(x, y, fila, columna, this.color);
         this.fichasAgregadas.push(ficha);
         let cant = this.fichasRestantes - 1;
         this.setFichasRestantes(cant);

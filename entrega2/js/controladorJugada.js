@@ -3,19 +3,10 @@ class ControladorJugada {
         this.tablero = tablero;
         this.filas = this.tablero.getCantFilas();
         this.columnas = this.tablero.getCantColumnas();
-        this.fichasGanadoras = [];
     }
 
-    vaciarArregloFichas() {
-        this.fichasGanadoras = [];
-    }
-
-    getFichasGanadoras() {
-        return this.fichasGanadoras;
-    }
 
     controlFichas(jugador, x, y) {
-        this.vaciarArregloFichas();
 
         let matrizCeldas = this.tablero.getMatriz();
         let fichasPosicionadas = jugador.getFichas();
@@ -24,17 +15,14 @@ class ControladorJugada {
         // control horizontal 
         let resultado = this.controlHorizontal(x, ficha, matrizCeldas);
         if (resultado) {
-            this.fichasGanadoras.push(ficha);
             return true;
         } else {
             // control vertical
             let resultado = this.controlVertical(y, ficha, matrizCeldas);
             if (resultado) {
-                this.fichasGanadoras.push(ficha);
                 return true;
             } else {
                 // control diagonal
-                this.fichasGanadoras.push(ficha);
                 return this.controlDiagonal(x, y, ficha, matrizCeldas);
             }
         }
@@ -55,10 +43,9 @@ class ControladorJugada {
     //Control Horizontal anterior a la ultima posicion
     controlHorizontalAnterior(x, ficha, matrizCeldas) {
         let contador = 0;
-        let y = ficha.posY;
+        let y = ficha.columna;
 
         while (y - 1 >= 0 && (ficha.getColor() === matrizCeldas[y - 1][x]?.fichaColor)) {
-            this.fichasGanadoras.push(ficha);
             contador++;
             y--;
         }
@@ -68,9 +55,8 @@ class ControladorJugada {
     //Control Horizontal posterior a la ultima posicion
     controlHorizontalPosterior(x, ficha, matrizCeldas) {
         let contador = 0;
-        let y = ficha.posY;
+        let y = ficha.columna;
         while (y < matrizCeldas[y].length && (ficha.getColor() === matrizCeldas[y + 1][x]?.fichaColor)) {
-            this.fichasGanadoras.push(ficha);
             contador++;
             y++;
         }
@@ -80,10 +66,9 @@ class ControladorJugada {
     // Control unico hacia abajo desde la ultima posicion
     controlVertical(y, ficha, matrizCeldas) {
         let contador = 1;
-        let x = ficha.posX;
+        let x = ficha.fila;
         let cantFilas = matrizCeldas[y].length;
         while (x < cantFilas - 1 && (ficha.getColor() === matrizCeldas[y][x + 1]?.fichaColor)) {
-            this.fichasGanadoras.push(ficha);
             contador++;
             x++;
         }
@@ -121,7 +106,6 @@ class ControladorJugada {
     controlDiagonalIzqArriba(x, y, ficha, matrizCeldas) {
         let contador = 0;
         while ((x > 0 && y > 0) && ficha.getColor() === matrizCeldas[y - 1][x - 1]?.fichaColor) {
-            this.fichasGanadoras.push(ficha);
             contador++;
             x--;
             y--;
@@ -136,7 +120,6 @@ class ControladorJugada {
             && x < this.filas
             && y < this.columnas
             && (ficha.getColor() === matrizCeldas[y + 1][x + 1]?.fichaColor)) {
-            this.fichasGanadoras.push(ficha);
             contador++;
             x++;
             y++;
@@ -152,7 +135,6 @@ class ControladorJugada {
             && x < this.filas
             && y < this.columnas
             && (ficha.getColor() === matrizCeldas[y + 1][x - 1]?.fichaColor)) {
-            this.fichasGanadoras.push(ficha);
             contador++;
             x--;
             y++;
@@ -166,7 +148,6 @@ class ControladorJugada {
             && x < this.filas
             && y < this.columnas
             && (ficha.getColor() === matrizCeldas[y - 1][x + 1]?.fichaColor)) {
-            this.fichasGanadoras.push(ficha);
             contador++;
             x++;
             y--;
@@ -179,7 +160,6 @@ class ControladorJugada {
         if (cantFichas >= maxFichasGanadoras) {
             return true;
         } else {
-            this.vaciarArregloFichas();
             return false;
         }
     }

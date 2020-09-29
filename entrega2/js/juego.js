@@ -22,10 +22,10 @@ class Juego {
         jugador.setTurnoActivo(false);
     }
 
-    iniciarJuego() {
-        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    limpiarCanvas() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
-    
+
     crearJuego() {
         this.tablero = new Tablero(this.canvas, this.ctx);
         this.tablero.dibujaGrid();
@@ -53,13 +53,13 @@ class Juego {
                 if (this.jugador1.turnoActivo) {
                     ocupada = this.tablero.ocuparCelda(x, y, this.jugador1.getColor());
                     if (ocupada.celdaOcupada) {
-                        this.jugador1.addFicha(ocupada.fila, ocupada.columna);
+                        this.jugador1.addFicha(x, y, ocupada.fila, ocupada.columna);
                         this.habilitarJugador(this.jugador2, this.jugador1);
                         this.jugadorActivo = 'jugador2';
                         let result = this.controladorJugada.controlFichas(this.jugador1, ocupada.fila, ocupada.columna);
                         if (result) {
                             // Finalizar juego
-                            this.emiter.emit('finishedgame', this.jugador1.getNombre());
+                            this.finalizarJuego(this.jugador1.getNombre());
                         }
                     }
                 }
@@ -68,19 +68,26 @@ class Juego {
                 if (this.jugador2.turnoActivo) {
                     ocupada = this.tablero.ocuparCelda(x, y, this.jugador2.getColor());
                     if (ocupada.celdaOcupada) {
-                        this.jugador2.addFicha(ocupada.fila, ocupada.columna);
+                        this.jugador2.addFicha(x, y, ocupada.fila, ocupada.columna);
                         this.habilitarJugador(this.jugador1, this.jugador2);
                         this.jugadorActivo = 'jugador1';
                         let result = this.controladorJugada.controlFichas(this.jugador2, ocupada.fila, ocupada.columna);
                         if (result) {
                             // Finalizar juego
-                            this.emiter.emit('finishedgame', this.jugador2.getNombre());
+                            this.finalizarJuego(this.jugador2.getNombre());
                         }
                     }
                 }
                 break;
         }
+
     }
+
+    finalizarJuego(nombreJugador) {
+        this.emiter.emit('finishedgame', nombreJugador);
+    }
+    
+    
 
 
 

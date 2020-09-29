@@ -148,12 +148,4 @@ class Tablero {
                 break;
         }
     }
-
-    // necesita la posicion X o Y y no la fila o columna
-    dibujarGanadoras(fichasGanadoras) {
-        let color = fichasGanadoras[0].getColor();
-        fichasGanadoras.forEach(ficha => {
-            // this.imagenes.dibujarFicha(ficha.posX)
-        });
-    }
 }
