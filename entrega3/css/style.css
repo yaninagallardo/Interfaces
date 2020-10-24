@@ -1,0 +1,229 @@
+@font-face{
+  font-family: allan-regular;
+  src: url("../asset/fonts/Allan-Regular.ttf");
+}
+
+@keyframes example{
+    0%{filter: opacity(0.9) drop-shadow(0 0 0 #2b8);}
+    25%{filter: opacity(0.9) drop-shadow(16px 16px 10px rgb(175, 34, 34))}
+}
+
+/* fonts */
+.big{
+  font-size: 30px;
+}
+.big{
+  font-size: 20px;
+}
+
+body, html{
+  width: 100% ;
+  height: 100%;
+  margin: 0;
+  /* overflow: hidden; */
+  padding: 0;
+}
+
+.hidden{
+  visibility: hidden;
+}
+
+.layer{
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.background-loading{
+  background: transparent url('../asset/img/1572486909201.jpeg') no-repeat 0 0%;
+}
+.vuelo{
+  position: absolute;
+  background: transparent url('../asset/img/nubes/0s.png') no-repeat 0 0%;
+  background-size: cover;
+  width: 150%;
+  animation: spriteLogo .4s infinite;
+}
+
+.logo{
+  margin-left: 60%;
+  margin-top: 6%;
+  width: 40%;
+  height: 40%;
+  position: absolute;
+  background: transparent url('../asset/img/unnamed.png') no-repeat 0 0%;
+}
+
+.line-load{
+  width: 40%;
+  height: 10px;
+  position: absolute;
+  margin: 81vh 0 0 30% ;
+  border-radius: 194px 194px 194px 194px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 20px 0px rgba(235,235,235,1);
+  animation: glowLine 1.5s infinite alternate;
+  animation: loadingLine 5s ;
+}
+
+.loading-indicator{
+  position: absolute;
+  color: aliceblue;
+  font-size: 40px;
+  margin: 86vh 0 0 43% ;
+  animation: glowText 1.5s infinite alternate;
+}
+
+
+@keyframes glowText{
+ 0% { text-shadow: 0 0px 35px rgb(255, 255, 255)};
+ /* 100% { text-shadow: 0 0 35px rgb(255, 255, 255)}; */
+}
+@keyframes glowLine{
+  0% { box-shadow: 0px 0px 20px 0px rgba(235,235,235,1) };
+  /* 100% { text-shadow: 0 0 35px rgb(255, 255, 255)}; */
+ }
+
+ @keyframes loadingLine {
+  0% { width: 1%; }
+  100% { width: 40%; }
+}
+
+/* CARGA DE LOGO EN INICIO */
+@keyframes spriteLogo {
+  100% { left: -1440px; }
+}
+@keyframes spriteLogoTamaño {
+    0% { background-position-x: 0px; }
+    100% { background-position-x: -14880px; }
+}
+
+.imagen-box{
+  width: 480px;
+  height: 132px;
+  margin: 20% 30%;
+  overflow: hidden;
+  position: absolute;
+  background: transparent url('../asset/img/spritesheet2.png') no-repeat 0 0%;
+  animation: spriteLogo 2s steps(31) ;
+  animation-fill-mode: forwards;
+}
+
+/* CARGA DE AVION */
+@keyframes spriteAvion {
+  0% { margin: 0%; }
+  100% { margin: 40% 100%; }
+}
+.avion-box{
+  width: 90%;
+  height: 90%;
+  position: absolute;
+}
+
+#imagen-avion {
+  width: 20%;
+  margin: -20%;
+  float: right;  
+  z-index: 1;
+  animation-delay: 13s; 
+  animation: spriteAvion 2s steps(50) ;
+}
+
+
+/* pagina proncipal */
+.page-scroll{
+  position: relative;
+  width: 100%;
+  background-color: rgb(28, 20, 58);
+}
+
+.section{
+  width: 100%;
+  height: 102vh;
+  display: flex;
+  flex-direction: column;
+}
+.principal{
+  background-image: url('../asset/img/Avatar-2.jpg');
+  background-attachment: scroll;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+
+/* ACTORES */
+.layeractor-up {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+
+}
+
+.actor{
+  height: 100%;
+  width: 33.33%;
+  position: relative;
+}
+.sombra{
+  background-color: black;
+}
+.actor:hover{
+  width: 40%;
+}
+.actor:hover .actor1{
+  background-color: rgba(27, 27, 27, 0.609);
+  visibility: visible;
+  
+}
+ 
+.actor1{
+  width: 100%;
+  height: 100%;
+  color: rgb(255, 255, 255);
+  visibility: hidden;
+  z-index: 2;
+  position: absolute;
+}
+.img-actor{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+}
+
+.actor-name{
+  font-family: allan-regular;
+  font-size: 40px;
+  top: 80%;
+  margin-left: 10%;
+  position: absolute;
+}
+
+.actor-namesmall{
+  font-size: 20px;
+  top: 88%;
+  margin-left: 10%;
+  position: absolute;
+}
+
+.carousel-section{
+  width: 90%;
+  margin: 1% 5%;
+
+}
+
+.footer{
+  background-color: rgb(10, 10, 53);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.footer > span {
+  margin-right: 2%;
+  color: aliceblue;
+  
+}
