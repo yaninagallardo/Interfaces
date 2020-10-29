@@ -1,0 +1,29 @@
+body{
+    background-image: url("../asset/img/fondo-comentarios.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+form {
+    width: 30%;
+    margin-left: 10%;
+    margin-top: 15%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group > input{
+    background-color: #ffffffe6;
+    color: #1471ce;
+}
+
+span{
+    color: white;
+    text-align: center;
+    text-align: center;
+    font-size: 30px;
+}
+
+.spinner-button{
+    margin-left: -40px;
+}
