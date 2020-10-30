@@ -7,53 +7,75 @@
     <title>Gallardo Yanina - Interfaces de Usuario e Interacción</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/countdown.css">
+    <link rel="stylesheet" href="css/loading.css">
     <!-- CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
 
-<body>
-    <!-- <div id="loading" class="layer hidden background-loading">
+<body id="body" class="overflow">
+    <div id="loading" class="section background-loading">
         <div class="logo"></div>
         <div class="layer vuelo"></div>
         <div class="line-load">
         </div>
         <span class="loading-indicator">Cargando</span>
-    </div> -->
+    </div>
 
-    <div id="page-scroll" class="page-scroll principal">
-        <div class=" ">
-            <section class="section">
-                <div class="logo"></div>
-            </section>
-            <section class="section">
-                <div class="contador-dias">
-                    <span class="titulo-cronometro">FALTAN</span>
-                    <div class="box-days">
-                        <label id="dias" class="label-hours">0</label>
-                        <label class="label-days">Días</label>
-                    </div>
-                </div>
-                <div class="cronometro">
-                    <div class="box-hours">
-                        <label id="horas" class="label-hours">00</label>
-                        <label for="">Horas</label>
-                    </div>
-                    <div class="separator">:</div>
-                    <div class="box-hours">
-                        <label id="minutos" class="label-hours">00</label>
-                        <label for="">Minutos</label>
-                    </div>
-                    <div class="separator">:</div>
-                    <div class="box-hours">
-                        <label id="segundos" class="label-hours">00</label>
-                        <label for="">Segundos</label>
-                    </div>
-                </div>
-            </section>
-
+    <div id="page-scroll" class="page-scroll principal hidden">
+        <div class="neblina">
+            <img class="nube" src="asset/img/NUBE4.png" alt="">
+            <img class="nube1" src="asset/img/NUBE4.png" alt="">
+            <img class="nube2" src="asset/img/NUBE4.png" alt="">
         </div>
+        <header class="header">
+            <div class="hamburguer-menu fixed-div">
+                <button id="hamburguer-button" class="hamburguer-button"> <i
+                        class="icon fas fa-bars fa-lg"></i></button>
+                <div id="dropdown-hamburguer" class="dropdown-hamburguer hidden">
+                    <button>INICIO</button>
+                    <button>ACTORES</button>
+                    <button>GALERIA</button>
+                    <button><a href="eventos.html"> EVENTOS</a></button>
+                    <button><a href="comentarios.html"> COMENTARIOS</a></button>
+                </div>
+            </div>
+            <div class="page-sound fixed-div">
+                <button id="button-sound"><i id="icon" class="icon  fas fa-volume fa-2x"></i></button>
+            </div>
+        </header>
         <section class="section">
+            <div class="logo"></div>
+        </section>
+        <section class="section">
+            <div class="contador-dias">
+                <span class="titulo-cronometro">FALTAN</span>
+                <div class="box-days">
+                    <label id="dias" class="label-hours">0</label>
+                    <label class="label-days">Días</label>
+                </div>
+            </div>
+            <div class="cronometro">
+                <div class="box-hours">
+                    <label id="horas" class="label-hours">00</label>
+                    <label for="">Horas</label>
+                </div>
+                <div class="separator">:</div>
+                <div class="box-hours">
+                    <label id="minutos" class="label-hours">00</label>
+                    <label for="">Minutos</label>
+                </div>
+                <div class="separator">:</div>
+                <div class="box-hours">
+                    <label id="segundos" class="label-hours">00</label>
+                    <label for="">Segundos</label>
+                </div>
+            </div>
+        </section>
+        <!-- Actors -->
+        <section id="actors" class="section">
             <div class="layeractor-up">
                 <div class="actor">
                     <div class="actor1">
@@ -78,7 +100,8 @@
                 </div>
             </div>
         </section>
-        <section class="section">
+        <!-- Gallery -->
+        <section class="section shadow-background">
             <div class="carousel-section">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
@@ -109,17 +132,23 @@
                 </div>
             </div>
         </section>
+        <footer class="footer">
+            <span>Yanina Gallardo</span>
+            <span>Interfaces e Interacción de Usuarios</span>
+            <span>Técnico Universitario en Desarrollo de Aplicaciones Informáticas</span>
+        </footer>
+
     </div>
 
-    <footer class="footer">
-        <span>Yanina Gallardo</span> 
-        <span>Interfaces e Interacción de Usuarios</span> 
-        <span>Técnico Universitario en Desarrollo de Aplicaciones Informáticas</span> 
-    </footer>
 
-    <!-- <audio id="audio-loading" autoplay controls loop>
+    <audio id="audio-page" class="hidden" controls loop>
+        <source src="asset/sounds/becoming-neytiri.mp3" type="audio/mp3">
+    </audio>
+
+
+    <audio id="audio-loading" class="hidden" autoplay controls >
         <source src="asset/sounds/sonido-del-bosque.mp3" type="audio/mp3">
-    </audio> -->
+    </audio>
     <script src="js/main.js"></script>
     <script src="js/cronometro.js"></script>
 

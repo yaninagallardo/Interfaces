@@ -1,5 +1,4 @@
 class Cronometro {
-
     intervalo;
 
     constructor() {
@@ -10,7 +9,6 @@ class Cronometro {
 
         this.clock = new Date("2021-12-16 9:00:00 PM");
         // 16 de diciembre de 2021
-
     }
 
     startClock() {

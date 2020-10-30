@@ -21,7 +21,7 @@ function startPage() {
         setTimeout(()=>{
             console.log('aca');
             window.location = "index.html";
-        }, 1000);
+        }, 2000);
     });
 
 
