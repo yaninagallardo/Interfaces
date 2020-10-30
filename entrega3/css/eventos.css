@@ -1,0 +1,65 @@
+body{
+    background-image: url("../asset/img/fondo-eventos.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#loading {
+    z-index: 10;
+}
+
+
+.accordion {
+    background-color: rgb(116 157 158);
+    color: #e1f7ff;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: #000000 1px solid; 
+    outline: none;
+    transition: 0.4s;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+  background-color: #358ba2;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 18px;
+  background-color: rgba(255, 255, 255, 0.781);
+  display: none;
+  overflow: hidden;
+}
+
+.event{
+    position: absolute;
+    z-index: 0;
+    width: 40%;
+    margin-top: 12%;
+    margin-left: 10%;
+
+}
+img{
+    width: 50%;
+    margin-left: 25%;
+}
+
+.logo-event > img{
+    margin-left: 60%;
+    margin-top: 6%;
+    width: 40%;
+    height: 40%;
+    position: absolute;
+}
+
+a{
+    font-size: 30px;
+    margin: 1%;
+    text-decoration: none;
+}

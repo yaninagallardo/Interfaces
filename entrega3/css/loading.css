@@ -1,0 +1,50 @@
+.background-loading{
+    background: transparent url('../asset/img/1572486909201.jpeg') no-repeat 0 0%;
+    position: absolute;
+}
+
+@keyframes glowText{
+0% { text-shadow: 0 0px 35px rgb(255, 255, 255)};
+/* 100% { text-shadow: 0 0 35px rgb(255, 255, 255)}; */
+}
+@keyframes glowLine{
+    0% { box-shadow: 0px 0px 20px 0px rgba(235,235,235,1) };
+    /* 100% { text-shadow: 0 0 35px rgb(255, 255, 255)}; */
+}
+
+@keyframes loadingLine {
+    0% { width: 1%; }
+    100% { width: 40%; }
+}
+
+
+.logo{
+margin-left: 60%;
+margin-top: 6%;
+width: 40%;
+height: 40%;
+position: absolute;
+background: transparent url('../asset/img/unnamed.png') no-repeat 0 0%;
+}
+
+.line-load{
+width: 40%;
+height: 10px;
+position: absolute;
+margin: 81vh 0 0 30% ;
+border-radius: 194px 194px 194px 194px;
+background-color: rgb(255, 255, 255);
+box-shadow: 0px 0px 20px 0px rgba(235,235,235,1);
+animation: glowLine 1.5s infinite alternate;
+animation: loadingLine 5s ;
+}
+
+.loading-indicator{
+position: absolute;
+color: aliceblue;
+font-size: 40px;
+margin: 86vh 0 0 43% ;
+animation: glowText 1.5s infinite alternate;
+}
+  
+  
