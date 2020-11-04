@@ -8,7 +8,6 @@ body{
     z-index: 10;
 }
 
-
 .accordion {
     background-color: rgb(116 157 158);
     color: #e1f7ff;
@@ -62,4 +61,13 @@ a{
     font-size: 30px;
     margin: 1%;
     text-decoration: none;
+}
+
+@keyframes animacion-div{
+    0% {margin-left: -100%;}
+    100% {margin-left: 10%;}
+}
+
+.animar-entrada {
+    animation: animacion-div 2s;
 }
