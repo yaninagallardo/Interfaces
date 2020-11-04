@@ -31,7 +31,6 @@ body, html{
 .page-scroll{
   position: absolute;
   width: 100%;
-  background-color: rgb(28, 20, 58);
 }
 
 .section{
@@ -41,8 +40,8 @@ body, html{
   flex-direction: column;
 }
 
-.shadow-background{
-  background-color: #f9fcffab;
+.shadow-background {
+  backdrop-filter: blur(5px);
 }
 
 @keyframes moverNube{
@@ -76,7 +75,7 @@ body, html{
   animation-delay: 18s;
 }
 
-.principal{
+body{
   background-image: url('../asset/img/Avatar-2.jpg');
   background-position: center;
   background-repeat: no-repeat;
@@ -104,16 +103,24 @@ body, html{
   background-color: black;
 }
 .actor:hover .img-actor{
-  -webkit-transform:scale(1.3);
   transform:scale(1.3);
 }
+
+@keyframes scale {
+  0% {
+    height: 0%;
+  }
+  100% {
+    height: 100%
+  }
+}
 .actor:hover .actor1{
+  animation: scale 1s;
   background-color: rgba(27, 27, 27, 0.609);
   visibility: visible;
-  
 }
- 
-.actor1{
+
+.actor1 {
   width: 100%;
   height: 100%;
   color: rgb(255, 255, 255);
@@ -206,7 +213,7 @@ body, html{
   margin-top: 1%;
 }
 
-.dropdown-hamburguer > button{
+.dropdown-hamburguer > button, .dropdown-hamburguer > button> a{
   background-color: #6c757d45;
   color: rgb(255, 255, 255);
   padding: 3%;
@@ -238,3 +245,4 @@ body, html{
 .icon:hover{
   color: rgb(0, 255, 13);
 }
+

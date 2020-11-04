@@ -18,26 +18,26 @@
 <body id="body" class="overflow">
     <div id="loading" class="section background-loading">
         <div class="logo"></div>
-        <div class="layer vuelo"></div>
-        <div class="line-load">
-        </div>
+        <div class="line-load"></div>
         <span class="loading-indicator">Cargando</span>
     </div>
-
     <div id="page-scroll" class="page-scroll principal hidden">
         <div class="neblina">
             <img class="nube" src="asset/img/NUBE4.png" alt="">
             <img class="nube1" src="asset/img/NUBE4.png" alt="">
             <img class="nube2" src="asset/img/NUBE4.png" alt="">
         </div>
+        <!-- Hamburguer -->
         <header class="header">
             <div class="hamburguer-menu fixed-div">
                 <button id="hamburguer-button" class="hamburguer-button"> <i
                         class="icon fas fa-bars fa-lg"></i></button>
+                        <!-- Menu List -->
                 <div id="dropdown-hamburguer" class="dropdown-hamburguer hidden">
-                    <button>INICIO</button>
-                    <button>ACTORES</button>
-                    <button>GALERIA</button>
+                    <button id="inicio">INICIO</button>
+                    <button id="contador">CUENTA REGRRESIVA</button>
+                    <button id="actores">ACTORES</button>
+                    <button><a href="galeria.html">GALERIA</a></button>
                     <button><a href="eventos.html"> EVENTOS</a></button>
                     <button><a href="comentarios.html"> COMENTARIOS</a></button>
                 </div>
@@ -74,13 +74,14 @@
                 </div>
             </div>
         </section>
+        
         <!-- Actors -->
         <section id="actors" class="section">
             <div class="layeractor-up">
                 <div class="actor">
                     <div class="actor1">
-                        <span class="actor-name">Zoey Zaldana</span>
-                        <span class="actor-namesmall">Neytiri</span>
+                        <span class="actor-name name">Zoey Zaldana</span>
+                        <span class="actor-namesmall name">Neytiri</span>
                     </div>
                     <img class="img-actor" src="asset/img/actors/Zoe-Saldana.png" alt="">
                 </div>
@@ -100,38 +101,6 @@
                 </div>
             </div>
         </section>
-        <!-- Gallery -->
-        <section class="section shadow-background">
-            <div class="carousel-section">
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="./asset/img/movie/avatar-1.png" class="d-block w-100 image-carousel" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="./asset/img/movie/avatar-2.png" class="d-block w-100 image-carousel" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="./asset/img/movie/avatar-3.png" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="./asset/img/movie/avatar-4.png" class="d-block w-100 image-carousel" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="./asset/img/movie/avatar-5.png" class="d-block w-100 image-carousel" alt="...">
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-            </div>
-        </section>
         <footer class="footer">
             <span>Yanina Gallardo</span>
             <span>Interfaces e Interacción de Usuarios</span>
@@ -140,24 +109,18 @@
 
     </div>
 
-
     <audio id="audio-page" class="hidden" controls loop>
         <source src="asset/sounds/becoming-neytiri.mp3" type="audio/mp3">
     </audio>
 
 
-    <audio id="audio-loading" class="hidden" autoplay controls >
+    <audio id="audio-loading" class="hidden" autoplay controls>
         <source src="asset/sounds/sonido-del-bosque.mp3" type="audio/mp3">
     </audio>
     <script src="js/main.js"></script>
     <script src="js/cronometro.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-        crossorigin="anonymous"></script>
+    
 </body>
 
 </html>

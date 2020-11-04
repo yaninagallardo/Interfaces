@@ -2,6 +2,7 @@
 document.addEventListener("DOMContentLoaded", startPage());
 const soundClass = "fa-volume";
 const muteClass = "fa-volume-mute";
+window.scrollTo(0,0);
 function startPage() {
     let audioLoading = document.querySelector("#audio-loading");
     let audioPage = document.querySelector("#audio-page");
@@ -12,7 +13,6 @@ function startPage() {
     let hamburguerMenu = document.querySelector("#dropdown-hamburguer");
 
     hamburguer.addEventListener('click', () => {
-        console.log('menu ', hamburguerMenu);
         toggleHiddenContent(hamburguerMenu);
     });
 
@@ -52,7 +52,6 @@ function startPage() {
     let con = document.querySelector(".contador-dias");
     let width = 0;
     window.addEventListener('scroll', function (e) {
-        console.log(window.scrollY);
         if (window.scrollY < 652.222 && up(window.scrollY)) {
             if (width < 100) {
                 width = width + 3;
@@ -76,6 +75,21 @@ function startPage() {
             return false;
         }
     }
+
+    document.querySelector("#actores")
+    .addEventListener('click', function() {
+        window.scrollTo(0, 1313);
+    });
+    document.querySelector("#inicio")
+    .addEventListener('click', function() {
+        window.scrollTo(0, 0);
+    });
+    document.querySelector("#contador")
+    .addEventListener('click', function() {
+        window.scrollTo(0, 642);
+        con.style.width = '100%';
+    });
+
 }
 
 

@@ -2,6 +2,7 @@ body{
     background-image: url("../asset/img/fondo-comentarios.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    contain: content;
 }
 
 form {
@@ -26,4 +27,17 @@ span{
 
 .spinner-button{
     margin-left: -40px;
+}
+
+input:hover{
+    background-color: rgb(175 191 191);
+}
+
+@keyframes animacion-div{
+    0% {margin-top: -100%;}
+    100% {margin-top: 0%;}
+}
+
+.animar-entrada {
+    animation: animacion-div 2s;
 }

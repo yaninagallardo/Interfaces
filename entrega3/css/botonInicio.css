@@ -1,0 +1,15 @@
+
+
+.logo-event > img{
+    margin-left: 60%;
+    margin-top: 6%;
+    width: 40%;
+    height: 40%;
+    position: absolute;
+}
+
+a{
+    font-size: 30px;
+    margin: 1%;
+    text-decoration: none;
+}

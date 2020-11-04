@@ -1,5 +1,6 @@
 
 document.addEventListener("DOMContentLoaded", () => {
+    window.scrollTo(0,0);
     let loading = document.querySelector("#loading");
     let pageScroll = document.querySelector("#pageScroll");
     let body = document.querySelector("#body");

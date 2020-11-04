@@ -1,0 +1,6 @@
+body{
+    background-image: url("../asset/img/Avatar-2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    contain: content;
+}
